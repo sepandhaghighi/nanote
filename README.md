@@ -9,7 +9,7 @@
 
 ## Overview
 
-TODO
+MyNote is a minimal, fast, and lightweight Progressive Web App (PWA) for creating and managing text notes. It provides a clean, distraction-free interface to write, save, load, import, and export notes directly from your browser. MyNote works offline and can be installed on desktop or mobile devices like a native app.
 
 ## Features
 
