@@ -13,7 +13,19 @@ MyNote is a minimal, fast, and lightweight Progressive Web App (PWA) for creatin
 
 ## Features
 
-TODO
+- **Minimal interface** - Focus on your notes without distractions
+
+- **Multiple notes** - Create, save, and load different text notes
+
+- **Autosave** - Optional automatic saving of your notes while you type
+
+- **Import / Export** - Backup or restore notes as files
+
+- **Copy to clipboard** - Quickly copy note content
+
+- **Persistent storage** - Notes remain saved in your browser
+
+- **Clear / Delete** - Remove individual notes or all notes safely with confirmation
 
 ## Usage
 
