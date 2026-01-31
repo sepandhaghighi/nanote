@@ -31,7 +31,7 @@ MyNote is a minimal, fast, and lightweight Progressive Web App (PWA) for creatin
 
 - **New**: Click ➕ to create a new note
 
-- **Save**: Click 💾 to save the note. Overwrites if the title exists
+- **Save**: Click 💾 to save the note
 
 - **Autosave**: Enable to save automatically while typing
 
