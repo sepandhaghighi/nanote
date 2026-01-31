@@ -9,15 +9,41 @@
 
 ## Overview
 
-TODO
+MyNote is a minimal, fast, and lightweight Progressive Web App (PWA) for creating and managing text notes. It provides a clean, distraction-free interface to write, save, load, import, and export notes directly from your browser. MyNote works offline and can be installed on desktop or mobile devices like a native app.
 
 ## Features
 
-TODO
+- **Minimal Interface** - Focus on your notes without distractions
+
+- **Multiple Notes** - Create, save, and load different text notes
+
+- **Autosave** - Optional automatic saving of your notes while you type
+
+- **Import / Export** - Backup or restore notes as files
+
+- **Copy to Clipboard** - Quickly copy note content
+
+- **Persistent Storage** - Notes remain saved in your browser
+
+- **Remove** - Remove individual notes or all notes safely with confirmation
 
 ## Usage
 
-TODO
+- **New**: Click ➕ to create a new note
+
+- **Save**: Click 💾 to save the note
+
+- **Autosave**: Enable to save automatically while typing
+
+- **Copy**: Click 📋 to copy note text to the clipboard
+
+- **Import**: Click ⬇️ to load notes from a `JSON` file
+
+- **Export**: Click ⬆️ to save notes to a `JSON` file
+
+- **Remove**: Click 🗑️ to remove the note
+
+- **Remove All**: Click 🧹 to remove all notes
 
 ## Issues & Bug Reports
 
