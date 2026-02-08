@@ -10,10 +10,10 @@ VERSION = "0.1"
 INDEX_ITEMS = ['<div class="version">Version {0}</div>']
 CHANGELOG_ITEMS = [
     "## [{0}]",
-    "https://github.com/sepandhaghighi/mynote/compare/v{0}...main",
+    "https://github.com/sepandhaghighi/nanote/compare/v{0}...main",
     "[{0}]:"]
 
-ISSUE_TEMPLATE_ITEMS = ["- MyNote {0}"]
+ISSUE_TEMPLATE_ITEMS = ["- Nanote {0}"]
 SECURITY_ITEMS = ["| {0}           | :white_check_mark: |", "| < {0}         | :x:                |"]
 
 FILES = {

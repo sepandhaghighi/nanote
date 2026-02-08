@@ -11,5 +11,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Item2
 
 
-[Unreleased]: https://github.com/sepandhaghighi/mynote/compare/v0.1...main
-[0.1]: https://github.com/sepandhaghighi/mynote/compare/5449258...v0.1
+[Unreleased]: https://github.com/sepandhaghighi/nanote/compare/v0.1...main
+[0.1]: https://github.com/sepandhaghighi/nanote/compare/5449258...v0.1

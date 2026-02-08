@@ -1,6 +1,6 @@
 {
-  "name": "MyNote: Minimal Note App",
-  "short_name": "MyNote",
+  "name": "Nanote: Minimal Note App",
+  "short_name": "Nanote",
   "start_url": "/",
   "scope": "/",
   "icons": [
