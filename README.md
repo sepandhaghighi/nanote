@@ -2,7 +2,7 @@
     <img src="https://github.com/sepandhaghighi/nanote/raw/main/assets/logo.png" alt="Nanote Logo" width="300">
     <h1>Nanote: Minimal Note App</h1>
     <br/>
-    <a href="https://TODO"><img src="https://img.shields.io/badge/demo-TODO-green.svg"></a>
+    <a href="https://nanote.ir"><img src="https://img.shields.io/badge/demo-nanote.ir-green.svg"></a>
     <a href="https://github.com/sepandhaghighi/nanote"><img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/sepandhaghighi/nanote"></a>
     <a href="https://github.com/sepandhaghighi/nanote"><img src="https://img.shields.io/github/stars/sepandhaghighi/nanote.svg?style=social&label=Stars"></a>
 </div>
@@ -47,6 +47,6 @@ Nanote is a minimal, fast, and lightweight Progressive Web App (PWA) for creatin
 
 ## Issues & Bug Reports
 
-Just fill an issue and describe it. We'll check it ASAP! or send an email to [me@sepand.tech](mailto:me@sepand.tech "me@sepand.tech"). 
+Just fill an issue and describe it. We'll check it ASAP! or send an email to [info@nanote.ir](mailto:info@nanote.ir "info@nanote.ir"). 
 
 - Please complete the issue template
