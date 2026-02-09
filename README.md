@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://github.com/sepandhaghighi/nanote/raw/main/assets/logo.png" alt="Nanote Logo" width="300">
+    <img src="https://github.com/sepandhaghighi/nanote/raw/logo/assets/logo.png" alt="Nanote Logo" width="300">
     <h1>Nanote: Minimal Note App</h1>
     <br/>
     <a href="https://nanote.ir"><img src="https://img.shields.io/badge/demo-nanote.ir-green.svg"></a>
