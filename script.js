@@ -213,7 +213,7 @@ exportButton.addEventListener("click", () => {
   const blob = new Blob([data], { type: "application/json" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = "mynote-recent.json";
+  a.download = "nanote-recent.json";
   a.click();
   URL.revokeObjectURL(a.href);
 });

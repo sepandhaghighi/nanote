@@ -80,12 +80,12 @@ body:
     validations:
       required: true
   - type: dropdown
-    id: MyNote-version
+    id: Nanote-version
     attributes:
-      label: MyNote version
-      description: Which version of MyNote are you using?
+      label: Nanote version
+      description: Which version of Nanote are you using?
       options:
-        - MyNote 0.1
+        - Nanote 0.1
       default: 0
     validations:
       required: true

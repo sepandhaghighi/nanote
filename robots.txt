@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://TODO/sitemap.xml
+Sitemap: https://nanote.ir/sitemap.xml
