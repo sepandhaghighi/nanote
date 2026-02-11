@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/png" href="https://nanote.ir/assets/favicon/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/svg+xml" href="https://nanote.ir/assets/favicon/favicon.svg">
+<link rel="shortcut icon" href="https://nanote.ir/assets/favicon/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="https://nanote.ir/assets/apple-touch-icon.png">
+<link rel="manifest" href="https://nanote.ir/site.webmanifest">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found | Nanote</title>
+<meta name="description" content="The page you're looking for doesn't exist or has been moved. Return to the Nanote homepage.">
+<meta name="author" content="Sepand Haghighi">
+<meta name="robots" content="noindex, follow">
+<meta name="apple-mobile-web-app-title" content="Nanote">
+<meta name="theme-color" content="#eff1f2">
+<meta property="og:site_name" content="Nanote">
+<meta property="og:title" content="Page Not Found | Nanote">
+<meta property="og:description" content="The page you're looking for doesn't exist or has been moved. Return to the Nanote homepage.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://nanote.ir/assets/og-preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Page Not Found | Nanote">
+<meta name="twitter:description" content="The page you're looking for doesn't exist or has been moved. Return to the Nanote homepage.">
+<meta name="twitter:image" content="https://nanote.ir/assets/og-preview.png">
+<script>
+window.onload = function () {
+const redirectLocation = window.location.origin;
+const text = document.getElementById("text");
+if (text) text.textContent = "Redirecting to homepage...";
+setTimeout(() => {
+window.location.replace(redirectLocation);
+}, 500);
+};
+</script>
+</head>
+<body>
+<p id="text" style="text-align:center;font-size:1.4em;"></p>  
+</body>
+</html>
