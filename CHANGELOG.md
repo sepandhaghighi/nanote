@@ -5,10 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-## [0.1] - 2026-xx-xx
+## [0.1] - 2026-02-16
 ### Added
-- Item1
-- Item2
+- New button
+- Save button
+- Copy button
+- Import button
+- Export button
+- Autosave mode
 
 
 [Unreleased]: https://github.com/sepandhaghighi/nanote/compare/v0.1...main
