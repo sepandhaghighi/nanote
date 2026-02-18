@@ -10,6 +10,45 @@ body {
   padding: 2rem 1rem;
 }
 
+#install-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #000;
+  display: none;
+  z-index: 9999;
+}
+
+#install-button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background: #000;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#install-button:hover {
+  opacity: 0.9;
+}
+
+#close-install {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#close-install:hover {
+  opacity: 0.7;
+}
+
 #last-save {
   display: none;
   text-align: center;
@@ -41,19 +80,19 @@ form {
   margin-bottom: 1.5rem;
 }
 
-button {
+#note-form button {
   padding: 0.75rem;
   font-size: 1rem;
   border: none;
   border-radius: 0.5rem;
-  background-color: #007bff;
+  background-color: #3c3e41;
   color: white;
   cursor: pointer;
   transition: background 0.2s;
 }
 
-button:hover {
-  background-color: #0056b3;
+#note-form button:hover {
+  background-color: #0c0c0c;
 }
 
 #note-title {
@@ -135,14 +174,14 @@ button:hover {
   font-size: 1rem;
   border: none;
   border-radius: 0.5rem;
-  background-color: #007bff;
+  background-color: #3c3e41;
   color: white;
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s, transform 0.05s;
 }
 
 .recent-actions button:hover {
-  background-color: #0056b3;
+  background-color: #0c0c0c;
 }
 
 .recent-actions button:active {

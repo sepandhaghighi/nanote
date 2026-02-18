@@ -9,6 +9,9 @@ const newNoteButton = document.getElementById("new-note");
 const copyNoteButton = document.getElementById("copy-note");
 const exportButton = document.getElementById("export-button");
 const importButton = document.getElementById("import-button");
+const installButton = document.getElementById("install-button");
+const closeInstallButton = document.getElementById("close-install");
+const installBanner = document.getElementById("install-banner");
 const recentFile = document.getElementById("recent-file");
 const removeAllButton = document.getElementById("remove-all-button");
 const recentKey = "recentNotes";
@@ -267,3 +270,73 @@ recentFile.addEventListener("change", () => {
   reader.readAsText(file);
 });
 window.addEventListener("resize", renderRecent);
+
+function showUpdateAlert(registration) {
+  if (confirm("🚀 A new version is available. Reload now?")) {
+    registration.waiting.postMessage({ type: "SKIP_WAITING" });
+  }
+}
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", async () => {
+    const reg = await navigator.serviceWorker.register("/service-worker.js");
+
+    if (reg.waiting) {
+      showUpdateAlert(reg);
+    }
+
+    reg.addEventListener("updatefound", () => {
+      const sw = reg.installing;
+      sw.addEventListener("statechange", () => {
+        if (sw.state === "installed" && navigator.serviceWorker.controller) {
+          showUpdateAlert(reg);
+        }
+      });
+    });
+
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      window.location.reload();
+    });
+  });
+}
+
+
+let deferredPrompt = null;
+let isInstalled = false;
+
+
+
+window.addEventListener("appinstalled", () => {
+  isInstalled = true;
+  deferredPrompt = null;
+  installBanner.style.display = "none";
+  console.log("PWA installed");
+});
+
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+
+  // Save the event
+  deferredPrompt = event;
+
+  if (!isInstalled) {
+    installBanner.style.display = "block";
+  }
+});
+
+installButton.addEventListener("click", async () => {
+  if (!deferredPrompt) return;
+
+  deferredPrompt.prompt();
+
+  const { outcome } = await deferredPrompt.userChoice;
+
+  console.log("User choice:", outcome);
+
+  deferredPrompt = null;
+  installBanner.style.display = "none";
+});
+
+closeInstallButton.addEventListener("click", () => {
+  installBanner.style.display = "none";
+});
