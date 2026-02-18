@@ -108,6 +108,14 @@ form {
   border-radius: 0.2rem;
 }
 
+#recent-header {
+  font-size: 1rem;
+  font-weight: bolder;
+  color: #000;
+  margin-bottom: 0.8rem;
+  text-align: center;
+}
+
 #recent-list {
   margin-top: 1.5rem;
   width: 100%;
@@ -151,6 +159,7 @@ form {
 
 .recent-remove:hover{
   cursor: pointer;
+  transform: scale(1.2);
 }
 
 .recent-title{
@@ -160,6 +169,7 @@ form {
 
 .recent-title:hover{
   cursor: pointer;
+  transform: scale(1.02);
 }
 
 .recent-actions {
