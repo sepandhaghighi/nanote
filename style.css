@@ -108,6 +108,14 @@ form {
   border-radius: 0.2rem;
 }
 
+#recent-header {
+  font-size: 1rem;
+  font-weight: bolder;
+  color: #000;
+  margin-bottom: 0.8rem;
+  text-align: center;
+}
+
 #recent-list {
   margin-top: 1.5rem;
   width: 100%;
@@ -149,17 +157,26 @@ form {
   background: #f2f2f2;
 }
 
-.recent-remove:hover{
+.recent-remove:hover {
   cursor: pointer;
+  transform: scale(1.2);
 }
 
-.recent-title{
+.recent-title {
   margin-right: auto;
   margin-left: 3px;
 }
 
-.recent-title:hover{
+.recent-title:hover {
   cursor: pointer;
+  font-weight: bolder;
+}
+
+.recent-remove, .recent-title {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .recent-actions {
