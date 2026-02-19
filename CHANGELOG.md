@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - PWA setup
 ### Changed
-- `Recently Notes` section updated
+- `Recent Notes` section updated
 ## [0.1] - 2026-02-16
 ### Added
 - New button
