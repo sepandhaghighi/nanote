@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - PWA setup
+- Words counter
+- Characters counter
 ### Changed
 - `Recent Notes` section updated
 ## [0.1] - 2026-02-16
