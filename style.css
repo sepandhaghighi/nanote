@@ -80,6 +80,7 @@ form {
   margin-bottom: 1.5rem;
 }
 
+
 #note-form button {
   padding: 0.75rem;
   font-size: 1rem;
@@ -107,6 +108,12 @@ form {
   height: 30em;
   max-height: 40em;
   border-radius: 0.2rem;
+}
+
+#note-stats {
+  font-size: 0.8rem;
+  color: #666;
+  text-align: right;
 }
 
 #recent-header {

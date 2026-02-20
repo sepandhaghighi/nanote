@@ -14,6 +14,8 @@ const closeInstallButton = document.getElementById("close-install");
 const installBanner = document.getElementById("install-banner");
 const recentFile = document.getElementById("recent-file");
 const removeAllButton = document.getElementById("remove-all-button");
+const charCount = document.getElementById("char-count");
+const wordCount = document.getElementById("word-count");
 const recentKey = "recentNotes";
 const autoSaveKey = "autoSave";
 
@@ -65,6 +67,18 @@ function validateForm() {
   return true;
 }
 
+function updateStats() {
+  const text = noteText.value;
+  const chars = text.length;
+
+  const words = text.trim().length === 0
+    ? 0
+    : text.trim().split(/\s+/).length;
+
+  charCount.textContent = `${chars} chars`;
+  wordCount.textContent = `${words} words`;
+}
+
 function saveNote(title, text) {
   if (!currentNoteTitle) {
     currentNoteTitle = title;
@@ -90,6 +104,7 @@ function loadNote(title, text, saveDate) {
   form.scrollIntoView({ behavior: "smooth" });
   lastSave.style.display = "block";
   noteSaveDate.textContent = new Date(saveDate).toLocaleString();
+  updateStats();
 }
 
 function removeNote(title) {
@@ -177,6 +192,7 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 noteText.addEventListener("input", () => {
+  updateStats();
   if (autoSave.checked){
     if (!currentNoteTitle) {
       const ok = validateForm();
