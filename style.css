@@ -98,7 +98,8 @@ form {
 #note-title {
   max-width: 600px;
   border-radius: 0.2rem;
-  padding: 0.3rem;
+  padding: 0.45rem;
+  font-weight: bolder;
 }
 
 #note-text {
@@ -120,11 +121,6 @@ form {
   margin-top: 1.5rem;
   width: 100%;
   max-width: 600px;
-}
-
-#recent-list h3 {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
 }
 
 #recent-list ul {
