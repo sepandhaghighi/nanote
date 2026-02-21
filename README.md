@@ -11,6 +11,14 @@
 
 Nanote is a minimal, fast, and lightweight Progressive Web App (PWA) for creating and managing text notes. It provides a clean, distraction-free interface to write, save, load, import, and export notes directly from your browser. Nanote works offline and can be installed on desktop or mobile devices like a native app.
 
+<table>
+	<tr> 
+		<td align="center">Code Quality</td>
+		<td align="center"><a href="https://www.codefactor.io/repository/github/sepandhaghighi/nanote"><img src="https://www.codefactor.io/repository/github/sepandhaghighi/nanote/badge" alt="CodeFactor"></a></td>
+		<td align="center"><a href="https://app.codacy.com/gh/sepandhaghighi/nanote/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade"><img src="https://app.codacy.com/project/badge/Grade/444fe0ef735942b898237729a0dc080d"></a></td>
+	</tr>
+</table>
+
 ## Features
 
 - **Minimal Interface** - Focus on your notes without distractions

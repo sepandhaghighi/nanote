@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Characters counter
 ### Changed
 - `Recent Notes` section updated
+- `README.md` updated
 ## [0.1] - 2026-02-16
 ### Added
 - New button
