@@ -184,7 +184,7 @@ form.addEventListener("submit", function(e){
 
 window.addEventListener("DOMContentLoaded", () => {
   renderRecent();
-  autoSave.checked = eval(localStorage.getItem(autoSaveKey)) || false;
+  autoSave.checked = localStorage.getItem(autoSaveKey) === "true";
   const recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
   if (recent.length > 0) {
     loadNote(recent[0].title, recent[0].text, recent[0].saveDate);
