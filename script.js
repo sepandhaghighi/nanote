@@ -32,18 +32,6 @@ function unlockTitle() {
   currentNoteTitle = null;
 }
 
-function formatTime(totalSeconds) {
-  const hours = Math.floor(totalSeconds / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
-
-  return (
-    String(hours).padStart(2, "0") + ":" +
-    String(minutes).padStart(2, "0") + ":" +
-    String(seconds).padStart(2, "0")
-  );
-}
-
 
 function truncateTitle(title, maxLength = 24) {
   if (!title) return "";
@@ -184,7 +172,7 @@ form.addEventListener("submit", function(e){
 
 window.addEventListener("DOMContentLoaded", () => {
   renderRecent();
-  autoSave.checked = eval(localStorage.getItem(autoSaveKey)) || false;
+  autoSave.checked = localStorage.getItem(autoSaveKey) === "true";
   const recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
   if (recent.length > 0) {
     loadNote(recent[0].title, recent[0].text, recent[0].saveDate);
