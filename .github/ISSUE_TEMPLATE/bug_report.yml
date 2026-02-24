@@ -85,6 +85,7 @@ body:
       label: Nanote version
       description: Which version of Nanote are you using?
       options:
+        - Nanote 0.2
         - Nanote 0.1
       default: 0
     validations:
