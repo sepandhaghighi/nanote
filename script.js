@@ -218,10 +218,15 @@ exportButton.addEventListener("click", () => {
     alert("No recent data to export.");
     return;
   }
+  let fileName = prompt("File Name:", "nanote-recent.json").trim();
+  fileName = fileName.replaceAll(" ", "-");
+  if (!fileName) {
+    fileName = "nanote-recent.json";
+  }
   const blob = new Blob([data], { type: "application/json" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = "nanote-recent.json";
+  a.download = fileName;
   a.click();
   URL.revokeObjectURL(a.href);
 });
