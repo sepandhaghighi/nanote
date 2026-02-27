@@ -143,7 +143,7 @@ form {
 #recent-list li {
   padding: 0.5rem 0.75rem;
   border-bottom: 1px solid #eee;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -149,10 +149,10 @@ function renderRecent(){
     li.appendChild(spanRemove);
     li.appendChild(spanTitle);
     li.appendChild(spanSaveDate);
-    spanRemove.addEventListener("click", ()=>{
+    spanRemove.addEventListener("click", () => {
       removeNote(item.title);
     });
-    spanTitle.addEventListener("click", ()=>{
+    spanTitle.addEventListener("click", () => {
       loadNote(item.title, item.text, item.saveDate);
     });
     recentItems.appendChild(li);
@@ -163,7 +163,7 @@ function renderRecent(){
 }
 
 
-form.addEventListener("submit", function(e){
+form.addEventListener("submit", function(e) {
   e.preventDefault();
   if (validateForm()) {
     saveNote(noteTitle.value.trim(), noteText.value);
