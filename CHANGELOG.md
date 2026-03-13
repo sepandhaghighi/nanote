@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Export file name dialog
 ### Changed
 - Offline-first bug fixed
+- Text direction bug fixed
 ## [0.2] - 2026-02-24
 ### Added
 - [Statcounter](https://statcounter.com/) script
