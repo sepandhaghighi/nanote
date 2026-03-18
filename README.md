@@ -53,6 +53,22 @@ Nanote is a minimal, fast, and lightweight Progressive Web App (PWA) for creatin
 
 - **Remove All**: Click 🧹 to remove all notes
 
+## Local Development
+
+To test Nanote locally, you can use [Ghps](https://github.com/sepandhaghighi/ghps) a minimal GitHub Pages simulator written in pure Python.
+
+Run:
+
+```console
+ghps --port 8000
+```
+
+Then open your browser and visit:
+
+```console
+http://localhost:8000
+```
+
 ## Issues & Bug Reports
 
 Just fill an issue and describe it. We'll check it ASAP! or send an email to [info@nanote.ir](mailto:info@nanote.ir "info@nanote.ir"). 

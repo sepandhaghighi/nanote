@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Offline-first bug fixed
 - Text direction bug fixed
+- `README.md` updated
 ## [0.2] - 2026-02-24
 ### Added
 - [Statcounter](https://statcounter.com/) script
