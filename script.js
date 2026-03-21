@@ -205,6 +205,8 @@ autoSave.addEventListener("change", () => {
 newNoteButton.addEventListener("click", () => {
   noteTitle.value = "";
   noteText.value = "";
+  noteSaveDate.textContent = "";
+  lastSave.style.display = "none";
   updateStats();
   unlockTitle();
   noteTitle.focus();
