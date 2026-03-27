@@ -110,6 +110,7 @@ form {
   max-height: 40em;
   border-radius: 0.2rem;
   text-align: start;
+  resize: none;
 }
 
 #note-stats {
