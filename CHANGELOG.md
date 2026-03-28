@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Last save bug fixed
 - Note resize disabled
+- `service-worker.js` modified
 ## [0.3] - 2026-03-21
 ### Added
 - Export file name dialog
