@@ -7,6 +7,7 @@ const autoSave = document.getElementById("auto-save");
 const recentItems = document.getElementById("recent-items");
 const newNoteButton = document.getElementById("new-note");
 const copyNoteButton = document.getElementById("copy-note");
+const downloadNoteButton = document.getElementById("download-note");
 const exportButton = document.getElementById("export-button");
 const importButton = document.getElementById("import-button");
 const installButton = document.getElementById("install-button");
@@ -21,6 +22,44 @@ const autoSaveKey = "autoSave";
 
 let currentNoteText = null;
 let currentNoteTitle = null;
+
+function getMimeType(ext) {
+  const mimeTypes = {
+    txt: "text/plain",
+    md: "text/markdown",
+    html: "text/html",
+    htm: "text/html",
+    json: "application/json",
+    csv: "text/csv",
+    xml: "application/xml",
+    yaml: "application/x-yaml",
+    yml: "application/x-yaml",
+    js: "text/javascript",
+    py: "text/x-python",
+    css: "text/css",
+    log: "text/plain"
+  };
+  return mimeTypes[ext] || "application/octet-stream";
+}
+
+function downloadNote() {
+  const title = noteTitle.value.trim() || "nanote";
+  const text = noteText.value;
+  const defaultName =
+    (title.replace(/\s+/g, "_") || "nanote") + ".txt";
+  const fileName = prompt("Enter file name (example: note.txt):", defaultName);
+  if (!fileName) return;
+  const cleanName = fileName.trim();
+  const parts = cleanName.split(".");
+  const ext = parts.length > 1 ? parts.pop().toLowerCase() : "";
+  const mime = getMimeType(ext);
+  const blob = new Blob([text], { type: mime });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = cleanName;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
 
 function lockTitle() {
   noteTitle.disabled = true;
@@ -352,3 +391,5 @@ installButton.addEventListener("click", async () => {
 closeInstallButton.addEventListener("click", () => {
   installBanner.style.display = "none";
 });
+
+downloadNoteButton.addEventListener("click", downloadNote);
