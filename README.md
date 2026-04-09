@@ -31,6 +31,8 @@ Nanote is a minimal, fast, and lightweight Progressive Web App (PWA) for creatin
 
 - **Flexible Download** - Download the current note in any file format with a custom filename
 
+- **Open Files** - Load text files directly into the editor
+
 - **Copy to Clipboard** - Quickly copy note content
 
 - **Persistent Storage** - Notes remain saved in your browser
@@ -48,6 +50,8 @@ Nanote is a minimal, fast, and lightweight Progressive Web App (PWA) for creatin
 - **Copy**: Click 📋 to copy note text to the clipboard
 
 - **Download**: Click ⬇️ to download the current note as a file
+
+- **Open**: Click 📂 to open and load a text file into the editor
 
 - **Import**: Click ⬇️ to load notes from a `JSON` file
 
