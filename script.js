@@ -30,15 +30,9 @@ function openNoteFromFile(file) {
 
   reader.onload = () => {
     const content = reader.result;
-
-    // Set content
     noteText.value = content;
-
-    // Set title from file name (without extension)
     const name = file.name.replace(/\.[^/.]+$/, "");
     noteTitle.value = name;
-
-    // Reset state
     unlockTitle();
     updateStats();
   };
@@ -424,9 +418,6 @@ openNoteButton.addEventListener("click", () => {
 openFileInput.addEventListener("change", () => {
   const file = openFileInput.files[0];
   if (!file) return;
-
   openNoteFromFile(file);
-
-  // reset input so same file can be reselected
   openFileInput.value = "";
 });
