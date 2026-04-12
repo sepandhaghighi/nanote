@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Note resize disabled
 - `service-worker.js` modified
 - `README.md` updated
+- Buttons order updated
 ## [0.3] - 2026-03-21
 ### Added
 - Export file name dialog
