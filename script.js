@@ -8,6 +8,8 @@ const recentItems = document.getElementById("recent-items");
 const newNoteButton = document.getElementById("new-note");
 const copyNoteButton = document.getElementById("copy-note");
 const downloadNoteButton = document.getElementById("download-note");
+const openNoteButton = document.getElementById("open-note");
+const openFileInput = document.getElementById("open-file");
 const exportButton = document.getElementById("export-button");
 const importButton = document.getElementById("import-button");
 const installButton = document.getElementById("install-button");
@@ -22,6 +24,21 @@ const autoSaveKey = "autoSave";
 
 let currentNoteText = null;
 let currentNoteTitle = null;
+
+function openNoteFromFile(file) {
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    const content = reader.result;
+    noteText.value = content;
+    const name = file.name.replace(/\.[^/.]+$/, "");
+    noteTitle.value = name;
+    unlockTitle();
+    updateStats();
+  };
+
+  reader.readAsText(file);
+}
 
 function getMimeType(ext) {
   const mimeTypes = {
@@ -393,3 +410,14 @@ closeInstallButton.addEventListener("click", () => {
 });
 
 downloadNoteButton.addEventListener("click", downloadNote);
+
+openNoteButton.addEventListener("click", () => {
+  openFileInput.click();
+});
+
+openFileInput.addEventListener("change", () => {
+  const file = openFileInput.files[0];
+  if (!file) return;
+  openNoteFromFile(file);
+  openFileInput.value = "";
+});
