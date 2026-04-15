@@ -1,4 +1,4 @@
-const cacheName = "nanote-v0.3";
+const cacheName = "nanote-v0.4";
 const appShell = [
   "./",
   "index.html",
