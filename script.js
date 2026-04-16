@@ -22,7 +22,9 @@ const wordCount = document.getElementById("word-count");
 const recentKey = "recentNotes";
 const autoSaveKey = "autoSave";
 
-let currentNoteText = null;
+const state = {
+  currentNoteText: null,
+}
 let currentNoteTitle = null;
 
 function openNoteFromFile(file) {
@@ -84,7 +86,7 @@ function lockTitle() {
 
 function unlockTitle() {
   noteTitle.disabled = false;
-  currentNoteText = null;
+  state.currentNoteText = null;
   currentNoteTitle = null;
 }
 
@@ -126,7 +128,7 @@ function updateStats() {
 function saveNote(title, text) {
   if (!currentNoteTitle) {
     currentNoteTitle = title;
-    currentNoteText = text;
+    state.currentNoteText = text;
     lockTitle();
   }
   let saveDate = new Date().toGMTString()
@@ -143,7 +145,7 @@ function loadNote(title, text, saveDate) {
   noteText.value = text;
   noteTitle.value = title;
   currentNoteTitle = title;
-  currentNoteText = text;
+  state.currentNoteText = text;
   lockTitle();
   form.scrollIntoView({ behavior: "smooth" });
   lastSave.style.display = "block";
