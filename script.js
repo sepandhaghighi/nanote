@@ -22,8 +22,10 @@ const wordCount = document.getElementById("word-count");
 const recentKey = "recentNotes";
 const autoSaveKey = "autoSave";
 
-let currentNoteText = null;
-let currentNoteTitle = null;
+const state = {
+  currentNoteText: null,
+  currentNoteTitle: null,
+}
 
 function openNoteFromFile(file) {
   const reader = new FileReader();
@@ -84,8 +86,8 @@ function lockTitle() {
 
 function unlockTitle() {
   noteTitle.disabled = false;
-  currentNoteText = null;
-  currentNoteTitle = null;
+  state.currentNoteText = null;
+  state.currentNoteTitle = null;
 }
 
 
@@ -104,7 +106,7 @@ function validateForm() {
   noteTitle.setCustomValidity("");
   let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
   recent = recent.filter(item => item.title === titleText);
-  if (recent.length > 0 && !currentNoteTitle) {
+  if (recent.length > 0 && !state.currentNoteTitle) {
     const ok = confirm("A note with this title already exists.\nContinuing will overwrite the existing note.\n\nContinue?");
     return ok;
   }
@@ -124,9 +126,9 @@ function updateStats() {
 }
 
 function saveNote(title, text) {
-  if (!currentNoteTitle) {
-    currentNoteTitle = title;
-    currentNoteText = text;
+  if (!state.currentNoteTitle) {
+    state.currentNoteTitle = title;
+    state.currentNoteText = text;
     lockTitle();
   }
   let saveDate = new Date().toGMTString()
@@ -142,8 +144,8 @@ function saveNote(title, text) {
 function loadNote(title, text, saveDate) {
   noteText.value = text;
   noteTitle.value = title;
-  currentNoteTitle = title;
-  currentNoteText = text;
+  state.currentNoteTitle = title;
+  state.currentNoteText = text;
   lockTitle();
   form.scrollIntoView({ behavior: "smooth" });
   lastSave.style.display = "block";
@@ -157,7 +159,7 @@ function removeNote(title) {
     let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
     recent = recent.filter(item => !(item.title===title));
     localStorage.setItem(recentKey, JSON.stringify(recent));
-    if (currentNoteTitle === title) {
+    if (state.currentNoteTitle === title) {
       unlockTitle();
     }
     renderRecent();
@@ -238,7 +240,7 @@ window.addEventListener("DOMContentLoaded", () => {
 noteText.addEventListener("input", () => {
   updateStats();
   if (autoSave.checked){
-    if (!currentNoteTitle) {
+    if (!state.currentNoteTitle) {
       const ok = validateForm();
       if (ok) {
         saveNote(noteTitle.value.trim(), noteText.value);
