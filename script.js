@@ -2,10 +2,11 @@ const DOM = {
   form: document.getElementById("note-form"),
   noteText: document.getElementById("note-text"),
   noteTitle: document.getElementById("note-title"),
+  lastSave: document.getElementById("last-save"),
 }
 
 
-const lastSave = document.getElementById("last-save");
+
 const noteSaveDate = document.getElementById("note-save-date");
 const autoSave = document.getElementById("auto-save");
 const recentItems = document.getElementById("recent-items");
@@ -140,7 +141,7 @@ function saveNote(title, text) {
   recent = recent.filter(item => item.title !== title);
   recent.unshift({title, text, saveDate});
   localStorage.setItem(recentKey, JSON.stringify(recent));
-  lastSave.style.display = "block";
+  DOM.lastSave.style.display = "block";
   noteSaveDate.textContent = new Date(saveDate).toLocaleString();
   renderRecent();
 }
@@ -152,7 +153,7 @@ function loadNote(title, text, saveDate) {
   state.currentNoteText = text;
   lockTitle();
   DOM.form.scrollIntoView({ behavior: "smooth" });
-  lastSave.style.display = "block";
+  DOM.lastSave.style.display = "block";
   noteSaveDate.textContent = new Date(saveDate).toLocaleString();
   updateStats();
 }
@@ -268,7 +269,7 @@ newNoteButton.addEventListener("click", () => {
   DOM.noteTitle.value = "";
   DOM.noteText.value = "";
   noteSaveDate.textContent = "";
-  lastSave.style.display = "none";
+  DOM.lastSave.style.display = "none";
   updateStats();
   unlockTitle();
   DOM.noteTitle.focus();
