@@ -9,9 +9,9 @@ const DOM = {
   newNoteButton: document.getElementById("new-note"),
   copyNoteButton: document.getElementById("copy-note"),
   downloadNoteButton: document.getElementById("download-note"),
+  openNoteButton: document.getElementById("open-note"),
 }
 
-const openNoteButton = document.getElementById("open-note");
 const openFileInput = document.getElementById("open-file");
 const exportButton = document.getElementById("export-button");
 const importButton = document.getElementById("import-button");
@@ -416,7 +416,7 @@ closeInstallButton.addEventListener("click", () => {
 
 DOM.downloadNoteButton.addEventListener("click", downloadNote);
 
-openNoteButton.addEventListener("click", () => {
+DOM.openNoteButton.addEventListener("click", () => {
   openFileInput.click();
 });
 
