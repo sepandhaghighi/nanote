@@ -1,4 +1,7 @@
-const form = document.getElementById("note-form");
+const DOM = {
+  form: document.getElementById("note-form"),
+}
+
 const noteText = document.getElementById("note-text");
 const noteTitle = document.getElementById("note-title");
 const lastSave = document.getElementById("last-save");
@@ -147,7 +150,7 @@ function loadNote(title, text, saveDate) {
   state.currentNoteTitle = title;
   state.currentNoteText = text;
   lockTitle();
-  form.scrollIntoView({ behavior: "smooth" });
+  DOM.form.scrollIntoView({ behavior: "smooth" });
   lastSave.style.display = "block";
   noteSaveDate.textContent = new Date(saveDate).toLocaleString();
   updateStats();
@@ -221,7 +224,7 @@ function renderRecent(){
 }
 
 
-form.addEventListener("submit", function(e) {
+DOM.form.addEventListener("submit", function(e) {
   e.preventDefault();
   if (validateForm()) {
     saveNote(noteTitle.value.trim(), noteText.value);
