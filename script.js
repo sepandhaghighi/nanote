@@ -1,9 +1,10 @@
 const DOM = {
   form: document.getElementById("note-form"),
   noteText: document.getElementById("note-text"),
+  noteTitle: document.getElementById("note-title"),
 }
 
-const noteTitle = document.getElementById("note-title");
+
 const lastSave = document.getElementById("last-save");
 const noteSaveDate = document.getElementById("note-save-date");
 const autoSave = document.getElementById("auto-save");
@@ -37,7 +38,7 @@ function openNoteFromFile(file) {
     const content = reader.result;
     DOM.noteText.value = content;
     const name = file.name.replace(/\.[^/.]+$/, "");
-    noteTitle.value = name;
+    DOM.noteTitle.value = name;
     unlockTitle();
     updateStats();
   };
@@ -65,7 +66,7 @@ function getMimeType(ext) {
 }
 
 function downloadNote() {
-  const title = noteTitle.value.trim() || "nanote";
+  const title = DOM.noteTitle.value.trim() || "nanote";
   const text = DOM.noteText.value;
   const defaultName =
     (title.replace(/\s+/g, "_") || "nanote") + ".txt";
@@ -84,11 +85,11 @@ function downloadNote() {
 }
 
 function lockTitle() {
-  noteTitle.disabled = true;
+  DOM.noteTitle.disabled = true;
 }
 
 function unlockTitle() {
-  noteTitle.disabled = false;
+  DOM.noteTitle.disabled = false;
   state.currentNoteText = null;
   state.currentNoteTitle = null;
 }
@@ -100,13 +101,13 @@ function truncateTitle(title, maxLength = 24) {
 }
 
 function validateForm() {
-  const titleText = noteTitle.value.trim();
+  const titleText = DOM.noteTitle.value.trim();
   if (titleText.length === 0) {
-    noteTitle.setCustomValidity("please fill out this field");
-    noteTitle.reportValidity();
+    DOM.noteTitle.setCustomValidity("please fill out this field");
+    DOM.noteTitle.reportValidity();
     return false;
   }
-  noteTitle.setCustomValidity("");
+  DOM.noteTitle.setCustomValidity("");
   let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
   recent = recent.filter(item => item.title === titleText);
   if (recent.length > 0 && !state.currentNoteTitle) {
@@ -146,7 +147,7 @@ function saveNote(title, text) {
 
 function loadNote(title, text, saveDate) {
   DOM.noteText.value = text;
-  noteTitle.value = title;
+  DOM.noteTitle.value = title;
   state.currentNoteTitle = title;
   state.currentNoteText = text;
   lockTitle();
@@ -227,7 +228,7 @@ function renderRecent(){
 DOM.form.addEventListener("submit", function(e) {
   e.preventDefault();
   if (validateForm()) {
-    saveNote(noteTitle.value.trim(), DOM.noteText.value);
+    saveNote(DOM.noteTitle.value.trim(), DOM.noteText.value);
   }
 });
 
@@ -246,7 +247,7 @@ DOM.noteText.addEventListener("input", () => {
     if (!state.currentNoteTitle) {
       const ok = validateForm();
       if (ok) {
-        saveNote(noteTitle.value.trim(), DOM.noteText.value);
+        saveNote(DOM.noteTitle.value.trim(), DOM.noteText.value);
       }
       else {
         autoSave.checked = false;
@@ -254,7 +255,7 @@ DOM.noteText.addEventListener("input", () => {
       }
     }
     else {
-      saveNote(noteTitle.value.trim(), DOM.noteText.value);
+      saveNote(DOM.noteTitle.value.trim(), DOM.noteText.value);
     }
   }
 });
@@ -264,13 +265,13 @@ autoSave.addEventListener("change", () => {
 })
 
 newNoteButton.addEventListener("click", () => {
-  noteTitle.value = "";
+  DOM.noteTitle.value = "";
   DOM.noteText.value = "";
   noteSaveDate.textContent = "";
   lastSave.style.display = "none";
   updateStats();
   unlockTitle();
-  noteTitle.focus();
+  DOM.noteTitle.focus();
 });
 
 copyNoteButton.addEventListener("click", copyNote);
@@ -309,8 +310,8 @@ importButton.addEventListener("click", () => {
 
 removeAllButton.addEventListener("click", removeAllNotes);
 
-noteTitle.addEventListener("input", () => {
-  noteTitle.setCustomValidity("");
+DOM.noteTitle.addEventListener("input", () => {
+  DOM.noteTitle.setCustomValidity("");
 });
 
 recentFile.addEventListener("change", () => {
