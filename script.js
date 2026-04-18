@@ -13,13 +13,13 @@ const DOM = {
   openFileInput: document.getElementById("open-file"),
   exportButton: document.getElementById("export-button"),
   importButton: document.getElementById("import-button"),
+  installButton: document.getElementById("install-button"),
+  closeInstallButton: document.getElementById("close-install"),
+  installBanner: document.getElementById("install-banner"),
 }
 
 
 
-const installButton = document.getElementById("install-button");
-const closeInstallButton = document.getElementById("close-install");
-const installBanner = document.getElementById("install-banner");
 const recentFile = document.getElementById("recent-file");
 const removeAllButton = document.getElementById("remove-all-button");
 const charCount = document.getElementById("char-count");
@@ -384,7 +384,7 @@ let isInstalled = false;
 window.addEventListener("appinstalled", () => {
   isInstalled = true;
   deferredPrompt = null;
-  installBanner.style.display = "none";
+  DOM.installBanner.style.display = "none";
   console.log("PWA installed");
 });
 
@@ -395,11 +395,11 @@ window.addEventListener("beforeinstallprompt", (event) => {
   deferredPrompt = event;
 
   if (!isInstalled) {
-    installBanner.style.display = "block";
+    DOM.installBanner.style.display = "block";
   }
 });
 
-installButton.addEventListener("click", async () => {
+DOM.installButton.addEventListener("click", async () => {
   if (!deferredPrompt) return;
 
   deferredPrompt.prompt();
@@ -409,11 +409,11 @@ installButton.addEventListener("click", async () => {
   console.log("User choice:", outcome);
 
   deferredPrompt = null;
-  installBanner.style.display = "none";
+  DOM.installBanner.style.display = "none";
 });
 
-closeInstallButton.addEventListener("click", () => {
-  installBanner.style.display = "none";
+DOM.closeInstallButton.addEventListener("click", () => {
+  DOM.installBanner.style.display = "none";
 });
 
 DOM.downloadNoteButton.addEventListener("click", downloadNote);
