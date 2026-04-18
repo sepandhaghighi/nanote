@@ -6,9 +6,10 @@ const DOM = {
   noteSaveDate: document.getElementById("note-save-date"),
   autoSave: document.getElementById("auto-save"),
   recentItems: document.getElementById("recent-items"),
+  newNoteButton: document.getElementById("new-note"),
 }
 
-const newNoteButton = document.getElementById("new-note");
+
 const copyNoteButton = document.getElementById("copy-note");
 const downloadNoteButton = document.getElementById("download-note");
 const openNoteButton = document.getElementById("open-note");
@@ -263,7 +264,7 @@ DOM.autoSave.addEventListener("change", () => {
   localStorage.setItem(autoSaveKey, DOM.autoSave.checked);
 })
 
-newNoteButton.addEventListener("click", () => {
+DOM.newNoteButton.addEventListener("click", () => {
   DOM.noteTitle.value = "";
   DOM.noteText.value = "";
   DOM.noteSaveDate.textContent = "";
