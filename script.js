@@ -7,10 +7,11 @@ const DOM = {
   autoSave: document.getElementById("auto-save"),
   recentItems: document.getElementById("recent-items"),
   newNoteButton: document.getElementById("new-note"),
+  copyNoteButton: document.getElementById("copy-note"),
 }
 
 
-const copyNoteButton = document.getElementById("copy-note");
+
 const downloadNoteButton = document.getElementById("download-note");
 const openNoteButton = document.getElementById("open-note");
 const openFileInput = document.getElementById("open-file");
@@ -274,7 +275,7 @@ DOM.newNoteButton.addEventListener("click", () => {
   DOM.noteTitle.focus();
 });
 
-copyNoteButton.addEventListener("click", copyNote);
+DOM.copyNoteButton.addEventListener("click", copyNote);
 
 exportButton.addEventListener("click", () => {
   const data = localStorage.getItem(recentKey);
