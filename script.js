@@ -5,8 +5,9 @@ const DOM = {
   lastSave: document.getElementById("last-save"),
   noteSaveDate: document.getElementById("note-save-date"),
   autoSave: document.getElementById("auto-save"),
+  recentItems: document.getElementById("recent-items"),
 }
-const recentItems = document.getElementById("recent-items");
+
 const newNoteButton = document.getElementById("new-note");
 const copyNoteButton = document.getElementById("copy-note");
 const downloadNoteButton = document.getElementById("download-note");
@@ -188,8 +189,8 @@ function copyNote() {
 function renderRecent(){
   const nowDate = new Date();
   const recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
-  recentItems.innerHTML="";
-  let maxLimit = recentItems.offsetWidth  / 10;
+  DOM.recentItems.innerHTML="";
+  let maxLimit = DOM.recentItems.offsetWidth  / 10;
   recent.forEach(item=>{
     const li = document.createElement("li");
     const spanTitle = document.createElement("span");
@@ -215,7 +216,7 @@ function renderRecent(){
     spanTitle.addEventListener("click", () => {
       loadNote(item.title, item.text, item.saveDate);
     });
-    recentItems.appendChild(li);
+    DOM.recentItems.appendChild(li);
   });
 
   exportButton.style.display = recent.length ? "inline-block" : "none";
