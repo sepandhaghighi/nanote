@@ -11,9 +11,10 @@ const DOM = {
   downloadNoteButton: document.getElementById("download-note"),
   openNoteButton: document.getElementById("open-note"),
   openFileInput: document.getElementById("open-file"),
+  exportButton: document.getElementById("export-button"),
 }
 
-const exportButton = document.getElementById("export-button");
+
 const importButton = document.getElementById("import-button");
 const installButton = document.getElementById("install-button");
 const closeInstallButton = document.getElementById("close-install");
@@ -219,7 +220,7 @@ function renderRecent(){
     DOM.recentItems.appendChild(li);
   });
 
-  exportButton.style.display = recent.length ? "inline-block" : "none";
+  DOM.exportButton.style.display = recent.length ? "inline-block" : "none";
   removeAllButton.style.display = recent.length ? "inline-block" : "none";
 }
 
@@ -275,7 +276,7 @@ DOM.newNoteButton.addEventListener("click", () => {
 
 DOM.copyNoteButton.addEventListener("click", copyNote);
 
-exportButton.addEventListener("click", () => {
+DOM.exportButton.addEventListener("click", () => {
   const data = localStorage.getItem(recentKey);
   if (!data) {
     alert("No recent data to export.");
