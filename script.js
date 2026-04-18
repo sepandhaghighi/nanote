@@ -12,10 +12,11 @@ const DOM = {
   openNoteButton: document.getElementById("open-note"),
   openFileInput: document.getElementById("open-file"),
   exportButton: document.getElementById("export-button"),
+  importButton: document.getElementById("import-button"),
 }
 
 
-const importButton = document.getElementById("import-button");
+
 const installButton = document.getElementById("install-button");
 const closeInstallButton = document.getElementById("close-install");
 const installBanner = document.getElementById("install-banner");
@@ -295,7 +296,7 @@ DOM.exportButton.addEventListener("click", () => {
   URL.revokeObjectURL(a.href);
 });
 
-importButton.addEventListener("click", () => {
+DOM.importButton.addEventListener("click", () => {
   const recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
   if (recent.length > 0) {
     const ok = confirm(
