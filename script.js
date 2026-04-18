@@ -4,9 +4,8 @@ const DOM = {
   noteTitle: document.getElementById("note-title"),
   lastSave: document.getElementById("last-save"),
   noteSaveDate: document.getElementById("note-save-date"),
+  autoSave: document.getElementById("auto-save"),
 }
-
-const autoSave = document.getElementById("auto-save");
 const recentItems = document.getElementById("recent-items");
 const newNoteButton = document.getElementById("new-note");
 const copyNoteButton = document.getElementById("copy-note");
@@ -233,7 +232,7 @@ DOM.form.addEventListener("submit", function(e) {
 
 window.addEventListener("DOMContentLoaded", () => {
   renderRecent();
-  autoSave.checked = localStorage.getItem(autoSaveKey) === "true";
+  DOM.autoSave.checked = localStorage.getItem(autoSaveKey) === "true";
   const recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
   if (recent.length > 0) {
     loadNote(recent[0].title, recent[0].text, recent[0].saveDate);
@@ -242,14 +241,14 @@ window.addEventListener("DOMContentLoaded", () => {
 
 DOM.noteText.addEventListener("input", () => {
   updateStats();
-  if (autoSave.checked){
+  if (DOM.autoSave.checked){
     if (!state.currentNoteTitle) {
       const ok = validateForm();
       if (ok) {
         saveNote(DOM.noteTitle.value.trim(), DOM.noteText.value);
       }
       else {
-        autoSave.checked = false;
+        DOM.autoSave.checked = false;
         alert("Auto-save was turned off because the note was not saved.\nYou can turn it back later.")
       }
     }
@@ -259,8 +258,8 @@ DOM.noteText.addEventListener("input", () => {
   }
 });
 
-autoSave.addEventListener("change", () => {
-  localStorage.setItem(autoSaveKey, autoSave.checked);
+DOM.autoSave.addEventListener("change", () => {
+  localStorage.setItem(autoSaveKey, DOM.autoSave.checked);
 })
 
 newNoteButton.addEventListener("click", () => {
