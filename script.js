@@ -10,9 +10,9 @@ const DOM = {
   copyNoteButton: document.getElementById("copy-note"),
   downloadNoteButton: document.getElementById("download-note"),
   openNoteButton: document.getElementById("open-note"),
+  openFileInput: document.getElementById("open-file"),
 }
 
-const openFileInput = document.getElementById("open-file");
 const exportButton = document.getElementById("export-button");
 const importButton = document.getElementById("import-button");
 const installButton = document.getElementById("install-button");
@@ -417,12 +417,12 @@ closeInstallButton.addEventListener("click", () => {
 DOM.downloadNoteButton.addEventListener("click", downloadNote);
 
 DOM.openNoteButton.addEventListener("click", () => {
-  openFileInput.click();
+  DOM.openFileInput.click();
 });
 
-openFileInput.addEventListener("change", () => {
-  const file = openFileInput.files[0];
+DOM.openFileInput.addEventListener("change", () => {
+  const file = DOM.openFileInput.files[0];
   if (!file) return;
   openNoteFromFile(file);
-  openFileInput.value = "";
+  DOM.openFileInput.value = "";
 });
