@@ -17,12 +17,9 @@ const DOM = {
   closeInstallButton: document.getElementById("close-install"),
   installBanner: document.getElementById("install-banner"),
   recentFile: document.getElementById("recent-file"),
+  removeAllButton: document.getElementById("remove-all-button"),
 }
 
-
-
-
-const removeAllButton = document.getElementById("remove-all-button");
 const charCount = document.getElementById("char-count");
 const wordCount = document.getElementById("word-count");
 const recentKey = "recentNotes";
@@ -223,7 +220,7 @@ function renderRecent(){
   });
 
   DOM.exportButton.style.display = recent.length ? "inline-block" : "none";
-  removeAllButton.style.display = recent.length ? "inline-block" : "none";
+  DOM.removeAllButton.style.display = recent.length ? "inline-block" : "none";
 }
 
 
@@ -310,7 +307,7 @@ DOM.importButton.addEventListener("click", () => {
   
 });
 
-removeAllButton.addEventListener("click", removeAllNotes);
+DOM.removeAllButton.addEventListener("click", removeAllNotes);
 
 DOM.noteTitle.addEventListener("input", () => {
   DOM.noteTitle.setCustomValidity("");
