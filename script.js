@@ -8,11 +8,9 @@ const DOM = {
   recentItems: document.getElementById("recent-items"),
   newNoteButton: document.getElementById("new-note"),
   copyNoteButton: document.getElementById("copy-note"),
+  downloadNoteButton: document.getElementById("download-note"),
 }
 
-
-
-const downloadNoteButton = document.getElementById("download-note");
 const openNoteButton = document.getElementById("open-note");
 const openFileInput = document.getElementById("open-file");
 const exportButton = document.getElementById("export-button");
@@ -416,7 +414,7 @@ closeInstallButton.addEventListener("click", () => {
   installBanner.style.display = "none";
 });
 
-downloadNoteButton.addEventListener("click", downloadNote);
+DOM.downloadNoteButton.addEventListener("click", downloadNote);
 
 openNoteButton.addEventListener("click", () => {
   openFileInput.click();
