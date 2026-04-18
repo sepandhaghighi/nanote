@@ -16,11 +16,12 @@ const DOM = {
   installButton: document.getElementById("install-button"),
   closeInstallButton: document.getElementById("close-install"),
   installBanner: document.getElementById("install-banner"),
+  recentFile: document.getElementById("recent-file"),
 }
 
 
 
-const recentFile = document.getElementById("recent-file");
+
 const removeAllButton = document.getElementById("remove-all-button");
 const charCount = document.getElementById("char-count");
 const wordCount = document.getElementById("word-count");
@@ -301,10 +302,10 @@ DOM.importButton.addEventListener("click", () => {
   if (recent.length > 0) {
     const ok = confirm(
     "Importing will REPLACE current recent notes.\nThis action is NOT reversible.\n\nContinue?");
-    if (ok) recentFile.click();
+    if (ok) DOM.recentFile.click();
   }
   else {
-    recentFile.click();
+    DOM.recentFile.click();
   }
   
 });
@@ -315,8 +316,8 @@ DOM.noteTitle.addEventListener("input", () => {
   DOM.noteTitle.setCustomValidity("");
 });
 
-recentFile.addEventListener("change", () => {
-  const file = recentFile.files[0];
+DOM.recentFile.addEventListener("change", () => {
+  const file = DOM.recentFile.files[0];
   if (!file) return;
   const reader = new FileReader();
   reader.onload = () => {
@@ -340,7 +341,7 @@ recentFile.addEventListener("change", () => {
     } catch {
       alert("Invalid recent data file.");
     }
-    recentFile.value = "";
+    DOM.recentFile.value = "";
   };
   reader.readAsText(file);
 });
