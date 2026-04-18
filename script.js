@@ -18,10 +18,10 @@ const DOM = {
   installBanner: document.getElementById("install-banner"),
   recentFile: document.getElementById("recent-file"),
   removeAllButton: document.getElementById("remove-all-button"),
+  charCount: document.getElementById("char-count"),
+  wordCount: document.getElementById("word-count"),
 }
 
-const charCount = document.getElementById("char-count");
-const wordCount = document.getElementById("word-count");
 const recentKey = "recentNotes";
 const autoSaveKey = "autoSave";
 
@@ -124,8 +124,8 @@ function updateStats() {
     ? 0
     : text.trim().split(/\s+/).length;
 
-  charCount.textContent = `${chars} chars`;
-  wordCount.textContent = `${words} words`;
+  DOM.charCount.textContent = `${chars} chars`;
+  DOM.wordCount.textContent = `${words} words`;
 }
 
 function saveNote(title, text) {
