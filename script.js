@@ -1,8 +1,8 @@
 const DOM = {
   form: document.getElementById("note-form"),
+  noteText: document.getElementById("note-text"),
 }
 
-const noteText = document.getElementById("note-text");
 const noteTitle = document.getElementById("note-title");
 const lastSave = document.getElementById("last-save");
 const noteSaveDate = document.getElementById("note-save-date");
@@ -35,7 +35,7 @@ function openNoteFromFile(file) {
 
   reader.onload = () => {
     const content = reader.result;
-    noteText.value = content;
+    DOM.noteText.value = content;
     const name = file.name.replace(/\.[^/.]+$/, "");
     noteTitle.value = name;
     unlockTitle();
@@ -66,7 +66,7 @@ function getMimeType(ext) {
 
 function downloadNote() {
   const title = noteTitle.value.trim() || "nanote";
-  const text = noteText.value;
+  const text = DOM.noteText.value;
   const defaultName =
     (title.replace(/\s+/g, "_") || "nanote") + ".txt";
   const fileName = prompt("Enter file name (example: note.txt):", defaultName);
@@ -117,7 +117,7 @@ function validateForm() {
 }
 
 function updateStats() {
-  const text = noteText.value;
+  const text = DOM.noteText.value;
   const chars = text.length;
 
   const words = text.trim().length === 0
@@ -145,7 +145,7 @@ function saveNote(title, text) {
 }
 
 function loadNote(title, text, saveDate) {
-  noteText.value = text;
+  DOM.noteText.value = text;
   noteTitle.value = title;
   state.currentNoteTitle = title;
   state.currentNoteText = text;
@@ -180,7 +180,7 @@ function removeAllNotes() {
 
 function copyNote() {
   if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(noteText.value);
+    navigator.clipboard.writeText(DOM.noteText.value);
   }
 }
 
@@ -227,7 +227,7 @@ function renderRecent(){
 DOM.form.addEventListener("submit", function(e) {
   e.preventDefault();
   if (validateForm()) {
-    saveNote(noteTitle.value.trim(), noteText.value);
+    saveNote(noteTitle.value.trim(), DOM.noteText.value);
   }
 });
 
@@ -240,13 +240,13 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-noteText.addEventListener("input", () => {
+DOM.noteText.addEventListener("input", () => {
   updateStats();
   if (autoSave.checked){
     if (!state.currentNoteTitle) {
       const ok = validateForm();
       if (ok) {
-        saveNote(noteTitle.value.trim(), noteText.value);
+        saveNote(noteTitle.value.trim(), DOM.noteText.value);
       }
       else {
         autoSave.checked = false;
@@ -254,7 +254,7 @@ noteText.addEventListener("input", () => {
       }
     }
     else {
-      saveNote(noteTitle.value.trim(), noteText.value);
+      saveNote(noteTitle.value.trim(), DOM.noteText.value);
     }
   }
 });
@@ -265,7 +265,7 @@ autoSave.addEventListener("change", () => {
 
 newNoteButton.addEventListener("click", () => {
   noteTitle.value = "";
-  noteText.value = "";
+  DOM.noteText.value = "";
   noteSaveDate.textContent = "";
   lastSave.style.display = "none";
   updateStats();
