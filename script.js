@@ -34,6 +34,10 @@ function getRecent() {
   return JSON.parse(localStorage.getItem(recentKey) || "[]");
 }
 
+function setRecent(data) {
+  localStorage.setItem(recentKey, JSON.stringify(data));
+}
+
 function openNoteFromFile(file) {
   const reader = new FileReader();
 
@@ -142,7 +146,7 @@ function saveNote(title, text) {
   let recent = getRecent();
   recent = recent.filter(item => item.title !== title);
   recent.unshift({title, text, saveDate});
-  localStorage.setItem(recentKey, JSON.stringify(recent));
+  setRecent(recent);
   DOM.lastSave.style.display = "block";
   DOM.noteSaveDate.textContent = new Date(saveDate).toLocaleString();
   renderRecent();
@@ -165,7 +169,7 @@ function removeNote(title) {
   if (ok) {
     let recent = getRecent();
     recent = recent.filter(item => !(item.title===title));
-    localStorage.setItem(recentKey, JSON.stringify(recent));
+    setRecent(recent);
     if (state.currentNoteTitle === title) {
       unlockTitle();
     }
@@ -333,7 +337,7 @@ DOM.recentFile.addEventListener("change", () => {
         typeof item.saveDate === "string"
       );
       if (!isValid) throw new Error();
-      localStorage.setItem(recentKey, JSON.stringify(parsed));
+      setRecent(parsed);
       renderRecent();
       if (parsed.length > 0) {
         loadNote(parsed[0].title, parsed[0].text, parsed[0].saveDate);
