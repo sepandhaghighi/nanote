@@ -38,6 +38,10 @@ function setRecent(data) {
   localStorage.setItem(recentKey, JSON.stringify(data));
 }
 
+function getAutoSave() {
+  return localStorage.getItem(autoSaveKey);
+}
+
 function openNoteFromFile(file) {
   const reader = new FileReader();
 
@@ -180,7 +184,7 @@ function removeNote(title) {
 function removeAllNotes() {
   const ok = confirm("Are you sure you want to remove all notes? This action cannot be undone.");
   if (ok) {
-    localStorage.setItem(recentKey, "[]");
+    setRecent([]);
     unlockTitle();
     renderRecent();
   }
@@ -241,7 +245,7 @@ DOM.form.addEventListener("submit", function(e) {
 
 window.addEventListener("DOMContentLoaded", () => {
   renderRecent();
-  DOM.autoSave.checked = localStorage.getItem(autoSaveKey) === "true";
+  DOM.autoSave.checked = getAutoSave() === "true";
   const recent = getRecent();
   if (recent.length > 0) {
     loadNote(recent[0].title, recent[0].text, recent[0].saveDate);
