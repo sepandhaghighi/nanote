@@ -30,6 +30,10 @@ const state = {
   currentNoteTitle: null,
 }
 
+function getRecent() {
+  return JSON.parse(localStorage.getItem(recentKey) || "[]");
+}
+
 function openNoteFromFile(file) {
   const reader = new FileReader();
 
@@ -107,7 +111,7 @@ function validateForm() {
     return false;
   }
   DOM.noteTitle.setCustomValidity("");
-  let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+  let recent = getRecent();
   recent = recent.filter(item => item.title === titleText);
   if (recent.length > 0 && !state.currentNoteTitle) {
     const ok = confirm("A note with this title already exists.\nContinuing will overwrite the existing note.\n\nContinue?");
@@ -135,7 +139,7 @@ function saveNote(title, text) {
     lockTitle();
   }
   let saveDate = new Date().toGMTString()
-  let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+  let recent = getRecent();
   recent = recent.filter(item => item.title !== title);
   recent.unshift({title, text, saveDate});
   localStorage.setItem(recentKey, JSON.stringify(recent));
@@ -159,7 +163,7 @@ function loadNote(title, text, saveDate) {
 function removeNote(title) {
   const ok = confirm("Are you sure you want to remove this note?");
   if (ok) {
-    let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+    let recent = getRecent();
     recent = recent.filter(item => !(item.title===title));
     localStorage.setItem(recentKey, JSON.stringify(recent));
     if (state.currentNoteTitle === title) {
@@ -188,7 +192,7 @@ function copyNote() {
 
 function renderRecent(){
   const nowDate = new Date();
-  const recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+  const recent = getRecent();
   DOM.recentItems.innerHTML="";
   let maxLimit = DOM.recentItems.offsetWidth  / 10;
   recent.forEach(item=>{
@@ -234,7 +238,7 @@ DOM.form.addEventListener("submit", function(e) {
 window.addEventListener("DOMContentLoaded", () => {
   renderRecent();
   DOM.autoSave.checked = localStorage.getItem(autoSaveKey) === "true";
-  const recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+  const recent = getRecent();
   if (recent.length > 0) {
     loadNote(recent[0].title, recent[0].text, recent[0].saveDate);
   }
@@ -295,7 +299,7 @@ DOM.exportButton.addEventListener("click", () => {
 });
 
 DOM.importButton.addEventListener("click", () => {
-  const recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
+  const recent = getRecent();
   if (recent.length > 0) {
     const ok = confirm(
     "Importing will REPLACE current recent notes.\nThis action is NOT reversible.\n\nContinue?");
