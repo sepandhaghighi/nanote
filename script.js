@@ -42,6 +42,11 @@ function getAutoSave() {
   return localStorage.getItem(autoSaveKey);
 }
 
+function setAutoSave(value) {
+  localStorage.setItem(autoSaveKey, value);
+}
+
+
 function openNoteFromFile(file) {
   const reader = new FileReader();
 
@@ -272,7 +277,7 @@ DOM.noteText.addEventListener("input", () => {
 });
 
 DOM.autoSave.addEventListener("change", () => {
-  localStorage.setItem(autoSaveKey, DOM.autoSave.checked);
+  setAutoSave(DOM.autoSave.checked);
 })
 
 DOM.newNoteButton.addEventListener("click", () => {
