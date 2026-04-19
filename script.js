@@ -293,7 +293,7 @@ DOM.newNoteButton.addEventListener("click", () => {
 DOM.copyNoteButton.addEventListener("click", copyNote);
 
 DOM.exportButton.addEventListener("click", () => {
-  const data = localStorage.getItem(recentKey);
+  const data = getRecent();
   if (!data) {
     alert("No recent data to export.");
     return;
@@ -303,7 +303,7 @@ DOM.exportButton.addEventListener("click", () => {
   if (!fileName) {
     fileName = "nanote-recent.json";
   }
-  const blob = new Blob([data], { type: "application/json" });
+  const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = fileName;
