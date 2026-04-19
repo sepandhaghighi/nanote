@@ -1,24 +1,27 @@
-const form = document.getElementById("note-form");
-const noteText = document.getElementById("note-text");
-const noteTitle = document.getElementById("note-title");
-const lastSave = document.getElementById("last-save");
-const noteSaveDate = document.getElementById("note-save-date");
-const autoSave = document.getElementById("auto-save");
-const recentItems = document.getElementById("recent-items");
-const newNoteButton = document.getElementById("new-note");
-const copyNoteButton = document.getElementById("copy-note");
-const downloadNoteButton = document.getElementById("download-note");
-const openNoteButton = document.getElementById("open-note");
-const openFileInput = document.getElementById("open-file");
-const exportButton = document.getElementById("export-button");
-const importButton = document.getElementById("import-button");
-const installButton = document.getElementById("install-button");
-const closeInstallButton = document.getElementById("close-install");
-const installBanner = document.getElementById("install-banner");
-const recentFile = document.getElementById("recent-file");
-const removeAllButton = document.getElementById("remove-all-button");
-const charCount = document.getElementById("char-count");
-const wordCount = document.getElementById("word-count");
+const DOM = {
+  form: document.getElementById("note-form"),
+  noteText: document.getElementById("note-text"),
+  noteTitle: document.getElementById("note-title"),
+  lastSave: document.getElementById("last-save"),
+  noteSaveDate: document.getElementById("note-save-date"),
+  autoSave: document.getElementById("auto-save"),
+  recentItems: document.getElementById("recent-items"),
+  newNoteButton: document.getElementById("new-note"),
+  copyNoteButton: document.getElementById("copy-note"),
+  downloadNoteButton: document.getElementById("download-note"),
+  openNoteButton: document.getElementById("open-note"),
+  openFileInput: document.getElementById("open-file"),
+  exportButton: document.getElementById("export-button"),
+  importButton: document.getElementById("import-button"),
+  installButton: document.getElementById("install-button"),
+  closeInstallButton: document.getElementById("close-install"),
+  installBanner: document.getElementById("install-banner"),
+  recentFile: document.getElementById("recent-file"),
+  removeAllButton: document.getElementById("remove-all-button"),
+  charCount: document.getElementById("char-count"),
+  wordCount: document.getElementById("word-count"),
+}
+
 const recentKey = "recentNotes";
 const autoSaveKey = "autoSave";
 
@@ -32,9 +35,9 @@ function openNoteFromFile(file) {
 
   reader.onload = () => {
     const content = reader.result;
-    noteText.value = content;
+    DOM.noteText.value = content;
     const name = file.name.replace(/\.[^/.]+$/, "");
-    noteTitle.value = name;
+    DOM.noteTitle.value = name;
     unlockTitle();
     updateStats();
   };
@@ -62,8 +65,8 @@ function getMimeType(ext) {
 }
 
 function downloadNote() {
-  const title = noteTitle.value.trim() || "nanote";
-  const text = noteText.value;
+  const title = DOM.noteTitle.value.trim() || "nanote";
+  const text = DOM.noteText.value;
   const defaultName =
     (title.replace(/\s+/g, "_") || "nanote") + ".txt";
   const fileName = prompt("Enter file name (example: note.txt):", defaultName);
@@ -81,11 +84,11 @@ function downloadNote() {
 }
 
 function lockTitle() {
-  noteTitle.disabled = true;
+  DOM.noteTitle.disabled = true;
 }
 
 function unlockTitle() {
-  noteTitle.disabled = false;
+  DOM.noteTitle.disabled = false;
   state.currentNoteText = null;
   state.currentNoteTitle = null;
 }
@@ -97,13 +100,13 @@ function truncateTitle(title, maxLength = 24) {
 }
 
 function validateForm() {
-  const titleText = noteTitle.value.trim();
+  const titleText = DOM.noteTitle.value.trim();
   if (titleText.length === 0) {
-    noteTitle.setCustomValidity("please fill out this field");
-    noteTitle.reportValidity();
+    DOM.noteTitle.setCustomValidity("please fill out this field");
+    DOM.noteTitle.reportValidity();
     return false;
   }
-  noteTitle.setCustomValidity("");
+  DOM.noteTitle.setCustomValidity("");
   let recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
   recent = recent.filter(item => item.title === titleText);
   if (recent.length > 0 && !state.currentNoteTitle) {
@@ -114,15 +117,15 @@ function validateForm() {
 }
 
 function updateStats() {
-  const text = noteText.value;
+  const text = DOM.noteText.value;
   const chars = text.length;
 
   const words = text.trim().length === 0
     ? 0
     : text.trim().split(/\s+/).length;
 
-  charCount.textContent = `${chars} chars`;
-  wordCount.textContent = `${words} words`;
+  DOM.charCount.textContent = `${chars} chars`;
+  DOM.wordCount.textContent = `${words} words`;
 }
 
 function saveNote(title, text) {
@@ -136,20 +139,20 @@ function saveNote(title, text) {
   recent = recent.filter(item => item.title !== title);
   recent.unshift({title, text, saveDate});
   localStorage.setItem(recentKey, JSON.stringify(recent));
-  lastSave.style.display = "block";
-  noteSaveDate.textContent = new Date(saveDate).toLocaleString();
+  DOM.lastSave.style.display = "block";
+  DOM.noteSaveDate.textContent = new Date(saveDate).toLocaleString();
   renderRecent();
 }
 
 function loadNote(title, text, saveDate) {
-  noteText.value = text;
-  noteTitle.value = title;
+  DOM.noteText.value = text;
+  DOM.noteTitle.value = title;
   state.currentNoteTitle = title;
   state.currentNoteText = text;
   lockTitle();
-  form.scrollIntoView({ behavior: "smooth" });
-  lastSave.style.display = "block";
-  noteSaveDate.textContent = new Date(saveDate).toLocaleString();
+  DOM.form.scrollIntoView({ behavior: "smooth" });
+  DOM.lastSave.style.display = "block";
+  DOM.noteSaveDate.textContent = new Date(saveDate).toLocaleString();
   updateStats();
 }
 
@@ -177,7 +180,7 @@ function removeAllNotes() {
 
 function copyNote() {
   if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(noteText.value);
+    navigator.clipboard.writeText(DOM.noteText.value);
   }
 }
 
@@ -186,8 +189,8 @@ function copyNote() {
 function renderRecent(){
   const nowDate = new Date();
   const recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
-  recentItems.innerHTML="";
-  let maxLimit = recentItems.offsetWidth  / 10;
+  DOM.recentItems.innerHTML="";
+  let maxLimit = DOM.recentItems.offsetWidth  / 10;
   recent.forEach(item=>{
     const li = document.createElement("li");
     const spanTitle = document.createElement("span");
@@ -213,66 +216,66 @@ function renderRecent(){
     spanTitle.addEventListener("click", () => {
       loadNote(item.title, item.text, item.saveDate);
     });
-    recentItems.appendChild(li);
+    DOM.recentItems.appendChild(li);
   });
 
-  exportButton.style.display = recent.length ? "inline-block" : "none";
-  removeAllButton.style.display = recent.length ? "inline-block" : "none";
+  DOM.exportButton.style.display = recent.length ? "inline-block" : "none";
+  DOM.removeAllButton.style.display = recent.length ? "inline-block" : "none";
 }
 
 
-form.addEventListener("submit", function(e) {
+DOM.form.addEventListener("submit", function(e) {
   e.preventDefault();
   if (validateForm()) {
-    saveNote(noteTitle.value.trim(), noteText.value);
+    saveNote(DOM.noteTitle.value.trim(), DOM.noteText.value);
   }
 });
 
 window.addEventListener("DOMContentLoaded", () => {
   renderRecent();
-  autoSave.checked = localStorage.getItem(autoSaveKey) === "true";
+  DOM.autoSave.checked = localStorage.getItem(autoSaveKey) === "true";
   const recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
   if (recent.length > 0) {
     loadNote(recent[0].title, recent[0].text, recent[0].saveDate);
   }
 });
 
-noteText.addEventListener("input", () => {
+DOM.noteText.addEventListener("input", () => {
   updateStats();
-  if (autoSave.checked){
+  if (DOM.autoSave.checked){
     if (!state.currentNoteTitle) {
       const ok = validateForm();
       if (ok) {
-        saveNote(noteTitle.value.trim(), noteText.value);
+        saveNote(DOM.noteTitle.value.trim(), DOM.noteText.value);
       }
       else {
-        autoSave.checked = false;
+        DOM.autoSave.checked = false;
         alert("Auto-save was turned off because the note was not saved.\nYou can turn it back later.")
       }
     }
     else {
-      saveNote(noteTitle.value.trim(), noteText.value);
+      saveNote(DOM.noteTitle.value.trim(), DOM.noteText.value);
     }
   }
 });
 
-autoSave.addEventListener("change", () => {
-  localStorage.setItem(autoSaveKey, autoSave.checked);
+DOM.autoSave.addEventListener("change", () => {
+  localStorage.setItem(autoSaveKey, DOM.autoSave.checked);
 })
 
-newNoteButton.addEventListener("click", () => {
-  noteTitle.value = "";
-  noteText.value = "";
-  noteSaveDate.textContent = "";
-  lastSave.style.display = "none";
+DOM.newNoteButton.addEventListener("click", () => {
+  DOM.noteTitle.value = "";
+  DOM.noteText.value = "";
+  DOM.noteSaveDate.textContent = "";
+  DOM.lastSave.style.display = "none";
   updateStats();
   unlockTitle();
-  noteTitle.focus();
+  DOM.noteTitle.focus();
 });
 
-copyNoteButton.addEventListener("click", copyNote);
+DOM.copyNoteButton.addEventListener("click", copyNote);
 
-exportButton.addEventListener("click", () => {
+DOM.exportButton.addEventListener("click", () => {
   const data = localStorage.getItem(recentKey);
   if (!data) {
     alert("No recent data to export.");
@@ -291,27 +294,27 @@ exportButton.addEventListener("click", () => {
   URL.revokeObjectURL(a.href);
 });
 
-importButton.addEventListener("click", () => {
+DOM.importButton.addEventListener("click", () => {
   const recent = JSON.parse(localStorage.getItem(recentKey) || "[]");
   if (recent.length > 0) {
     const ok = confirm(
     "Importing will REPLACE current recent notes.\nThis action is NOT reversible.\n\nContinue?");
-    if (ok) recentFile.click();
+    if (ok) DOM.recentFile.click();
   }
   else {
-    recentFile.click();
+    DOM.recentFile.click();
   }
   
 });
 
-removeAllButton.addEventListener("click", removeAllNotes);
+DOM.removeAllButton.addEventListener("click", removeAllNotes);
 
-noteTitle.addEventListener("input", () => {
-  noteTitle.setCustomValidity("");
+DOM.noteTitle.addEventListener("input", () => {
+  DOM.noteTitle.setCustomValidity("");
 });
 
-recentFile.addEventListener("change", () => {
-  const file = recentFile.files[0];
+DOM.recentFile.addEventListener("change", () => {
+  const file = DOM.recentFile.files[0];
   if (!file) return;
   const reader = new FileReader();
   reader.onload = () => {
@@ -335,7 +338,7 @@ recentFile.addEventListener("change", () => {
     } catch {
       alert("Invalid recent data file.");
     }
-    recentFile.value = "";
+    DOM.recentFile.value = "";
   };
   reader.readAsText(file);
 });
@@ -379,7 +382,7 @@ let isInstalled = false;
 window.addEventListener("appinstalled", () => {
   isInstalled = true;
   deferredPrompt = null;
-  installBanner.style.display = "none";
+  DOM.installBanner.style.display = "none";
   console.log("PWA installed");
 });
 
@@ -390,11 +393,11 @@ window.addEventListener("beforeinstallprompt", (event) => {
   deferredPrompt = event;
 
   if (!isInstalled) {
-    installBanner.style.display = "block";
+    DOM.installBanner.style.display = "block";
   }
 });
 
-installButton.addEventListener("click", async () => {
+DOM.installButton.addEventListener("click", async () => {
   if (!deferredPrompt) return;
 
   deferredPrompt.prompt();
@@ -404,22 +407,22 @@ installButton.addEventListener("click", async () => {
   console.log("User choice:", outcome);
 
   deferredPrompt = null;
-  installBanner.style.display = "none";
+  DOM.installBanner.style.display = "none";
 });
 
-closeInstallButton.addEventListener("click", () => {
-  installBanner.style.display = "none";
+DOM.closeInstallButton.addEventListener("click", () => {
+  DOM.installBanner.style.display = "none";
 });
 
-downloadNoteButton.addEventListener("click", downloadNote);
+DOM.downloadNoteButton.addEventListener("click", downloadNote);
 
-openNoteButton.addEventListener("click", () => {
-  openFileInput.click();
+DOM.openNoteButton.addEventListener("click", () => {
+  DOM.openFileInput.click();
 });
 
-openFileInput.addEventListener("change", () => {
-  const file = openFileInput.files[0];
+DOM.openFileInput.addEventListener("change", () => {
+  const file = DOM.openFileInput.files[0];
   if (!file) return;
   openNoteFromFile(file);
-  openFileInput.value = "";
+  DOM.openFileInput.value = "";
 });
