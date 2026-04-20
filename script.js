@@ -65,7 +65,7 @@ function togglePreview() {
   } else {
     DOM.markdownPreview.style.display = "none";
     DOM.noteText.style.display = "block";
-    DOM.previewToggleButton.textContent = "👁 Preview";
+    DOM.previewToggleButton.textContent = "👁 MD Preview";
   }
 }
 
