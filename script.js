@@ -20,7 +20,7 @@ const DOM = {
   removeAllButton: document.getElementById("remove-all-button"),
   charCount: document.getElementById("char-count"),
   wordCount: document.getElementById("word-count"),
-  previewToggle: document.getElementById("preview-toggle"),
+  previewToggleButton: document.getElementById("preview-toggle"),
   markdownPreview: document.getElementById("markdown-preview"),
 }
 
@@ -61,11 +61,11 @@ function togglePreview() {
     renderMarkdown();
     DOM.markdownPreview.style.display = "block";
     DOM.noteText.style.display = "none";
-    DOM.previewToggle.textContent = "✏️ Edit";
+    DOM.previewToggleButton.textContent = "✏️ Edit";
   } else {
     DOM.markdownPreview.style.display = "none";
     DOM.noteText.style.display = "block";
-    DOM.previewToggle.textContent = "👁 Preview";
+    DOM.previewToggleButton.textContent = "👁 Preview";
   }
 }
 
@@ -467,4 +467,4 @@ DOM.openFileInput.addEventListener("change", () => {
   DOM.openFileInput.value = "";
 });
 
-DOM.previewToggle.addEventListener("click", togglePreview);
+DOM.previewToggleButton.addEventListener("click", togglePreview);
