@@ -96,6 +96,25 @@ form {
   background-color: #0c0c0c;
 }
 
+#editor-container {
+  max-width: 600px;
+  height: 30em;
+  max-height: 40em;
+  position: relative;
+}
+
+#note-text,
+#markdown-preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 0.2rem;
+  border: 1px solid #000;
+}
+
 #note-title {
   max-width: 600px;
   border-radius: 0.2rem;
@@ -105,20 +124,11 @@ form {
 }
 
 #note-text {
-  max-width: 600px;
-  height: 30em;
-  max-height: 40em;
-  border-radius: 0.2rem;
   text-align: start;
   resize: none;
 }
 
 #markdown-preview {
-  max-width: 600px;
-  height: 30em;
-  max-height: 40em;
-  border-radius: 0.2rem;
-  border: 1px solid #ccc;
   padding: 0.5rem;
   background: #fff;
   overflow-y: auto;
