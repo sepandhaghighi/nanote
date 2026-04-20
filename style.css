@@ -113,6 +113,36 @@ form {
   resize: none;
 }
 
+#markdown-preview {
+  max-width: 600px;
+  height: 30em;
+  max-height: 40em;
+  border-radius: 0.2rem;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  background: #fff;
+  overflow-y: auto;
+  display: none;
+}
+
+#markdown-preview h1,
+#markdown-preview h2,
+#markdown-preview h3 {
+  margin-top: 0.8em;
+}
+
+#markdown-preview code {
+  background: #eee;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+#markdown-preview pre {
+  background: #eee;
+  padding: 0.5rem;
+  overflow-x: auto;
+}
+
 #note-stats {
   font-size: 0.8rem;
   color: #666;
