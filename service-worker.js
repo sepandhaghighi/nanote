@@ -12,7 +12,8 @@ const appShell = [
   "assets/web-app-manifest-512x512.png",
   "assets/favicon/favicon.svg",
   "assets/favicon/favicon.ico",
-  "assets/favicon/favicon-96x96.png"
+  "assets/favicon/favicon-96x96.png",
+  "vendor/marked.min.js",
 ];
 
 
