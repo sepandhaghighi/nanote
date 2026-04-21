@@ -20,6 +20,8 @@ const DOM = {
   removeAllButton: document.getElementById("remove-all-button"),
   charCount: document.getElementById("char-count"),
   wordCount: document.getElementById("word-count"),
+  previewToggleButton: document.getElementById("preview-toggle"),
+  markdownPreview: document.getElementById("markdown-preview"),
 }
 
 const recentKey = "recentNotes";
@@ -28,6 +30,7 @@ const autoSaveKey = "autoSave";
 const state = {
   currentNoteText: null,
   currentNoteTitle: null,
+  previewMode: false,
 }
 
 function getRecent() {
@@ -44,6 +47,26 @@ function getAutoSave() {
 
 function setAutoSave(value) {
   localStorage.setItem(autoSaveKey, value);
+}
+
+function renderMarkdown() {
+  const text = DOM.noteText.value;
+  DOM.markdownPreview.innerHTML = marked.parse(text);
+}
+
+function togglePreview() {
+  state.previewMode = !state.previewMode;
+
+  if (state.previewMode) {
+    renderMarkdown();
+    DOM.markdownPreview.style.display = "block";
+    DOM.noteText.style.display = "none";
+    DOM.previewToggleButton.textContent = "✏️ Edit";
+  } else {
+    DOM.markdownPreview.style.display = "none";
+    DOM.noteText.style.display = "block";
+    DOM.previewToggleButton.textContent = "👁 MD Preview";
+  }
 }
 
 
@@ -443,3 +466,5 @@ DOM.openFileInput.addEventListener("change", () => {
   openNoteFromFile(file);
   DOM.openFileInput.value = "";
 });
+
+DOM.previewToggleButton.addEventListener("click", togglePreview);

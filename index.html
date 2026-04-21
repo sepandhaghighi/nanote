@@ -41,10 +41,14 @@
   </fieldset>
   <p id="last-save"><span aria-hidden="true">🕒</span> Last Save: <span id="note-save-date"></span></p>
   <input type="text" id="note-title" placeholder="Title" dir="auto" required>
+  <div id="editor-container">
   <textarea id="note-text" placeholder="Text" dir="auto"></textarea>
+  <div id="markdown-preview" class="markdown-body"></div>
+  </div>
   <div id="note-stats">
   <span id="char-count">0 chars</span> | <span id="word-count">0 words</span>
   </div>
+  <button type="button" id="preview-toggle" aria-label="Toggle markdown preview">👁 MD Preview</button>
   <button type="submit" aria-label="Save note">💾 Save</button>
   <button type="button" id="open-note" aria-label="Open note">📂 Open</button>
   <button type="button" id="download-note" aria-label="Download note">⬇️ Download</button>
@@ -70,7 +74,7 @@
     GitHub
   </a>
 </footer>
-
+<script src="vendor/marked.min.js"></script>
 <script src="script.js"></script>
 <!-- Default Statcounter code for Nanote https://www.nanote.ir -->
 <script type="text/javascript">

@@ -39,6 +39,8 @@ Nanote is a minimal, fast, and lightweight Progressive Web App (PWA) for creatin
 
 - **Remove** - Remove individual notes or all notes safely with confirmation
 
+- **Markdown Preview** - A Markdown preview of your note content
+
 ## Usage
 
 - **New**: Click ➕ to create a new note
@@ -52,6 +54,8 @@ Nanote is a minimal, fast, and lightweight Progressive Web App (PWA) for creatin
 - **Download**: Click ⬇️ to download the current note as a file
 
 - **Open**: Click 📂 to open and load a text file into the editor
+
+- **Preview**: Click 👁 to toggle Markdown preview mode
 
 - **Import**: Click ⬇️ to load notes from a `JSON` file
 
