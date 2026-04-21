@@ -51,7 +51,9 @@ function setAutoSave(value) {
 
 function renderMarkdown() {
   const text = DOM.noteText.value;
-  DOM.markdownPreview.innerHTML = marked.parse(text);
+  const rawHtml = marked.parse(text);
+  const cleanHtml = DOMPurify.sanitize(rawHtml);
+  DOM.markdownPreview.innerHTML = cleanHtml;
 }
 
 function togglePreview() {
