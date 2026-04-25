@@ -228,6 +228,7 @@ function copyNote() {
 
 
 function createRecentItem(item, maxLimit) {
+  const nowDate = new Date();
   const li = document.createElement("li");
   const spanTitle = document.createElement("span");
   const spanRemove = document.createElement("span");
@@ -260,7 +261,6 @@ function attachRecentEvents(item, spanTitle, spanRemove) {
 }
 
 function renderRecent(){
-  const nowDate = new Date();
   const recent = getRecent();
   DOM.recentItems.innerHTML="";
   let maxLimit = DOM.recentItems.offsetWidth  / 10;
