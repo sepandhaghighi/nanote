@@ -265,11 +265,10 @@ function renderRecent(){
   DOM.recentItems.innerHTML="";
   let maxLimit = DOM.recentItems.offsetWidth  / 10;
   recent.forEach(item=>{
-    
-    
+    const { li, spanTitle, spanRemove } = createRecentItem(item, maxLimit);
+    attachRecentEvents(item, spanTitle, spanRemove)
     DOM.recentItems.appendChild(li);
   });
-
   DOM.exportButton.style.display = recent.length ? "inline-block" : "none";
   DOM.removeAllButton.style.display = recent.length ? "inline-block" : "none";
 }
