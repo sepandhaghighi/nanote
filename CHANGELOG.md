@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `setAutoSave` function
 - Markdown preview
 ### Changed
+- `renderRecent` function modified
 - `service-worker.js` modified
 - `README.md` updated
 ## [0.4] - 2026-04-15
