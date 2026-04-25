@@ -250,6 +250,15 @@ function createRecentItem(item, maxLimit) {
   return { li, spanTitle, spanRemove };
 }
 
+function attachRecentEvents(item, spanTitle, spanRemove) {
+  spanRemove.addEventListener("click", () => {
+    removeNote(item.title);
+  });
+  spanTitle.addEventListener("click", () => {
+    loadNote(item.title, item.text, item.saveDate);
+  });
+}
+
 function renderRecent(){
   const nowDate = new Date();
   const recent = getRecent();
@@ -257,12 +266,7 @@ function renderRecent(){
   let maxLimit = DOM.recentItems.offsetWidth  / 10;
   recent.forEach(item=>{
     
-    spanRemove.addEventListener("click", () => {
-      removeNote(item.title);
-    });
-    spanTitle.addEventListener("click", () => {
-      loadNote(item.title, item.text, item.saveDate);
-    });
+    
     DOM.recentItems.appendChild(li);
   });
 
