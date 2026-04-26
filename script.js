@@ -227,40 +227,48 @@ function copyNote() {
 }
 
 
+function createRecentItem(item, maxLimit) {
+  const nowDate = new Date();
+  const li = document.createElement("li");
+  const spanTitle = document.createElement("span");
+  const spanRemove = document.createElement("span");
+  const spanSaveDate = document.createElement("span");
+  spanTitle.textContent = truncateTitle(item.title, maxLimit);
+  spanTitle.className = "recent-title";
+  spanRemove.textContent = "🗑️";
+  spanRemove.className = "recent-remove";
+  if (nowDate.toLocaleDateString() === new Date(item.saveDate).toLocaleDateString()) {
+    spanSaveDate.textContent = new Date(item.saveDate).toLocaleTimeString();
+  }
+  else {
+    spanSaveDate.textContent = new Date(item.saveDate).toLocaleDateString();
+  }
+  spanSaveDate.className = "recent-save-date";
+  li.appendChild(spanRemove);
+  li.appendChild(spanTitle);
+  li.appendChild(spanSaveDate);
+
+  return { li, spanTitle, spanRemove };
+}
+
+function attachRecentEvents(item, spanTitle, spanRemove) {
+  spanRemove.addEventListener("click", () => {
+    removeNote(item.title);
+  });
+  spanTitle.addEventListener("click", () => {
+    loadNote(item.title, item.text, item.saveDate);
+  });
+}
 
 function renderRecent(){
-  const nowDate = new Date();
   const recent = getRecent();
   DOM.recentItems.innerHTML="";
   let maxLimit = DOM.recentItems.offsetWidth  / 10;
   recent.forEach(item=>{
-    const li = document.createElement("li");
-    const spanTitle = document.createElement("span");
-    const spanRemove = document.createElement("span");
-    const spanSaveDate = document.createElement("span");
-    spanTitle.textContent = truncateTitle(item.title, maxLimit);
-    spanTitle.className = "recent-title";
-    spanRemove.textContent = "🗑️";
-    spanRemove.className = "recent-remove";
-    if (nowDate.toLocaleDateString() === new Date(item.saveDate).toLocaleDateString()) {
-      spanSaveDate.textContent = new Date(item.saveDate).toLocaleTimeString();
-    }
-    else {
-      spanSaveDate.textContent = new Date(item.saveDate).toLocaleDateString();
-    }
-    spanSaveDate.className = "recent-save-date";
-    li.appendChild(spanRemove);
-    li.appendChild(spanTitle);
-    li.appendChild(spanSaveDate);
-    spanRemove.addEventListener("click", () => {
-      removeNote(item.title);
-    });
-    spanTitle.addEventListener("click", () => {
-      loadNote(item.title, item.text, item.saveDate);
-    });
+    const { li, spanTitle, spanRemove } = createRecentItem(item, maxLimit);
+    attachRecentEvents(item, spanTitle, spanRemove)
     DOM.recentItems.appendChild(li);
   });
-
   DOM.exportButton.style.display = recent.length ? "inline-block" : "none";
   DOM.removeAllButton.style.display = recent.length ? "inline-block" : "none";
 }
