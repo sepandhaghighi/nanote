@@ -9,6 +9,38 @@ const CONFIG = {
     RECENT_TITLE_RATIO: 10,
   },
 
+  FILE: {
+    DEFAULT_FILE_NAME: "nanote",
+    EXPORT_FILE_NAME: "nanote-recent.json",
+    FALLBACK_MIME: "application/octet-stream",
+    MIME_TYPES: {
+      txt: "text/plain",
+      md: "text/markdown",
+      html: "text/html",
+      htm: "text/html",
+      json: "application/json",
+      csv: "text/csv",
+      xml: "application/xml",
+      yaml: "application/x-yaml",
+      yml: "application/x-yaml",
+      js: "text/javascript",
+      py: "text/x-python",
+      css: "text/css",
+      log: "text/plain"
+    },
+  },
+
+  MESSAGES: {
+    CONFIRM_OVERWRITE: "A note with this title already exists.\nContinuing will overwrite the existing note.\n\nContinue?",
+    CONFIRM_REMOVE: "Are you sure you want to remove this note?",
+    CONFIRM_REMOVE_ALL: "Are you sure you want to remove all notes? This action cannot be undone.",
+    CONFIRM_IMPORT: "Importing will REPLACE current recent notes.\nThis action is NOT reversible.\n\nContinue?",
+    AUTO_SAVE_DISABLED: "Auto-save was turned off because the note was not saved.\nYou can turn it back later.",
+    EXPORT_EMPTY: "No recent data to export.",
+    IMPORT_SUCCESS: "Recent notes imported successfully.",
+    IMPORT_ERROR: "Invalid recent data file."
+  },
+
 }
 
 
@@ -99,29 +131,14 @@ function openNoteFromFile(file) {
 }
 
 function getMimeType(ext) {
-  const mimeTypes = {
-    txt: "text/plain",
-    md: "text/markdown",
-    html: "text/html",
-    htm: "text/html",
-    json: "application/json",
-    csv: "text/csv",
-    xml: "application/xml",
-    yaml: "application/x-yaml",
-    yml: "application/x-yaml",
-    js: "text/javascript",
-    py: "text/x-python",
-    css: "text/css",
-    log: "text/plain"
-  };
-  return mimeTypes[ext] || "application/octet-stream";
+  return CONFIG.FILE.MIME_TYPES[ext] || CONFIG.FILE.FALLBACK_MIME;
 }
 
 function downloadNote() {
-  const title = DOM.noteTitle.value.trim() || "nanote";
+  const title = DOM.noteTitle.value.trim() || CONFIG.FILE.DEFAULT_FILE_NAME;
   const text = DOM.noteText.value;
   const defaultName =
-    (title.replace(/\s+/g, "_") || "nanote") + ".txt";
+    (title.replace(/\s+/g, "_") || CONFIG.FILE.DEFAULT_FILE_NAME) + ".txt";
   const fileName = prompt("Enter file name (example: note.txt):", defaultName);
   if (!fileName) return;
   const cleanName = fileName.trim();
@@ -163,7 +180,7 @@ function validateForm() {
   let recent = getRecent();
   recent = recent.filter(item => item.title === titleText);
   if (recent.length > 0 && !state.currentNoteTitle) {
-    const ok = confirm("A note with this title already exists.\nContinuing will overwrite the existing note.\n\nContinue?");
+    const ok = confirm(CONFIG.MESSAGES.CONFIRM_OVERWRITE);
     return ok;
   }
   return true;
@@ -210,7 +227,7 @@ function loadNote(title, text, saveDate) {
 }
 
 function removeNote(title) {
-  const ok = confirm("Are you sure you want to remove this note?");
+  const ok = confirm(CONFIG.MESSAGES.CONFIRM_REMOVE);
   if (ok) {
     let recent = getRecent();
     recent = recent.filter(item => !(item.title===title));
@@ -223,7 +240,7 @@ function removeNote(title) {
 }
 
 function removeAllNotes() {
-  const ok = confirm("Are you sure you want to remove all notes? This action cannot be undone.");
+  const ok = confirm(CONFIG.MESSAGES.CONFIRM_REMOVE_ALL);
   if (ok) {
     setRecent([]);
     unlockTitle();
@@ -311,7 +328,7 @@ DOM.noteText.addEventListener("input", () => {
       }
       else {
         DOM.autoSave.checked = false;
-        alert("Auto-save was turned off because the note was not saved.\nYou can turn it back later.")
+        alert(CONFIG.MESSAGES.AUTO_SAVE_DISABLED)
       }
     }
     else {
@@ -339,13 +356,13 @@ DOM.copyNoteButton.addEventListener("click", copyNote);
 DOM.exportButton.addEventListener("click", () => {
   const data = getRecent();
   if (!data) {
-    alert("No recent data to export.");
+    alert(CONFIG.MESSAGES.EXPORT_EMPTY);
     return;
   }
-  let fileName = prompt("File Name:", "nanote-recent.json").trim();
+  let fileName = prompt("File Name:", CONFIG.FILE.EXPORT_FILE_NAME).trim();
   fileName = fileName.replaceAll(" ", "-");
   if (!fileName) {
-    fileName = "nanote-recent.json";
+    fileName = CONFIG.FILE.EXPORT_FILE_NAME;
   }
   const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
   const a = document.createElement("a");
@@ -359,7 +376,7 @@ DOM.importButton.addEventListener("click", () => {
   const recent = getRecent();
   if (recent.length > 0) {
     const ok = confirm(
-    "Importing will REPLACE current recent notes.\nThis action is NOT reversible.\n\nContinue?");
+    CONFIG.MESSAGES.CONFIRM_IMPORT);
     if (ok) DOM.recentFile.click();
   }
   else {
@@ -395,9 +412,9 @@ DOM.recentFile.addEventListener("change", () => {
       if (parsed.length > 0) {
         loadNote(parsed[0].title, parsed[0].text, parsed[0].saveDate);
       }
-      alert("Recent notes imported successfully.");
+      alert(CONFIG.MESSAGES.IMPORT_SUCCESS);
     } catch {
-      alert("Invalid recent data file.");
+      alert(CONFIG.MESSAGES.IMPORT_ERROR);
     }
     DOM.recentFile.value = "";
   };
