@@ -1,3 +1,11 @@
+const CONFIG = {
+  STORAGE_KEYS: {
+    RECENT: "recentNotes",
+  },
+
+}
+
+
 const DOM = {
   form: document.getElementById("note-form"),
   noteText: document.getElementById("note-text"),
@@ -24,7 +32,6 @@ const DOM = {
   markdownPreview: document.getElementById("markdown-preview"),
 }
 
-const recentKey = "recentNotes";
 const autoSaveKey = "autoSave";
 
 const state = {
@@ -34,11 +41,11 @@ const state = {
 }
 
 function getRecent() {
-  return JSON.parse(localStorage.getItem(recentKey) || "[]");
+  return JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEYS.RECENT) || "[]");
 }
 
 function setRecent(data) {
-  localStorage.setItem(recentKey, JSON.stringify(data));
+  localStorage.setItem(CONFIG.STORAGE_KEYS.RECENT, JSON.stringify(data));
 }
 
 function getAutoSave() {
