@@ -4,6 +4,11 @@ const CONFIG = {
     AUTO_SAVE: "autoSave",
   },
 
+  LIMITS: {
+    TITLE_MAX_LENGTH: 24,
+    RECENT_TITLE_RATIO: 10,
+  },
+
 }
 
 
@@ -142,7 +147,7 @@ function unlockTitle() {
 }
 
 
-function truncateTitle(title, maxLength = 24) {
+function truncateTitle(title, maxLength = CONFIG.LIMITS.TITLE_MAX_LENGTH) {
   if (!title) return "";
   return title.length > maxLength ? title.slice(0, maxLength - 3) + "..." : title;
 }
@@ -269,7 +274,7 @@ function attachRecentEvents(item, spanTitle, spanRemove) {
 function renderRecent(){
   const recent = getRecent();
   DOM.recentItems.innerHTML="";
-  let maxLimit = DOM.recentItems.offsetWidth  / 10;
+  let maxLimit = DOM.recentItems.offsetWidth  / CONFIG.LIMITS.RECENT_TITLE_RATIO;
   recent.forEach(item=>{
     const { li, spanTitle, spanRemove } = createRecentItem(item, maxLimit);
     attachRecentEvents(item, spanTitle, spanRemove)
