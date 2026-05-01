@@ -1,6 +1,7 @@
 const CONFIG = {
   STORAGE_KEYS: {
     RECENT: "recentNotes",
+    AUTO_SAVE: "autoSave",
   },
 
 }
@@ -32,8 +33,6 @@ const DOM = {
   markdownPreview: document.getElementById("markdown-preview"),
 }
 
-const autoSaveKey = "autoSave";
-
 const state = {
   currentNoteText: null,
   currentNoteTitle: null,
@@ -49,11 +48,11 @@ function setRecent(data) {
 }
 
 function getAutoSave() {
-  return localStorage.getItem(autoSaveKey);
+  return localStorage.getItem(CONFIG.STORAGE_KEYS.AUTO_SAVE);
 }
 
 function setAutoSave(value) {
-  localStorage.setItem(autoSaveKey, value);
+  localStorage.setItem(CONFIG.STORAGE_KEYS.AUTO_SAVE, value);
 }
 
 function renderMarkdown() {
