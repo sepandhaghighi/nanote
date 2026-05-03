@@ -320,7 +320,11 @@ DOM.form.addEventListener("submit", function(e) {
   e.preventDefault();
   if (validateForm()) {
     saveNote(DOM.noteTitle.value.trim(), DOM.noteText.value);
+    showButtonFeedback(e.submitter, "✅ Saved");
   }
+  else {
+    showButtonFeedback(e.submitter, "❌ Error", "error");
+  } 
 });
 
 window.addEventListener("DOMContentLoaded", () => {
