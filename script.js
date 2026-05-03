@@ -263,6 +263,10 @@ function removeAllNotes() {
     setRecent([]);
     unlockTitle();
     renderRecent();
+    showButtonFeedback(DOM.removeAllButton, "🧹 Cleared");
+  }
+  else {
+    showButtonFeedback(DOM.removeAllButton, "❌ Cancel", "error");
   }
 }
 
