@@ -259,6 +259,28 @@ footer {
   position:relative;
 }
 
+.button-feedback {
+  position: relative;
+  overflow: hidden;
+}
+
+.button-feedback.success {
+  background-color: #2e7d32 !important;
+}
+
+.button-feedback.error {
+  background-color: #c62828 !important;
+}
+
+.button-feedback.animate {
+  transform: scale(0.97);
+}
+
+.button-feedback span {
+  display: inline-block;
+  transition: opacity 0.2s ease;
+}
+
 @media (max-width: 600px) {
   h1 {
     font-size: 1.25rem;
