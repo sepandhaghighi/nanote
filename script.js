@@ -76,6 +76,20 @@ const state = {
   previewMode: false,
 }
 
+function showButtonFeedback(button, message, type = "success", timeout = 1200) {
+  if (!button.dataset.originalText) {
+    button.dataset.originalText = button.innerHTML;
+  }
+
+  button.classList.add("button-feedback", type, "animate");
+  button.innerHTML = message;
+
+  setTimeout(() => {
+    button.innerHTML = button.dataset.originalText;
+    button.classList.remove("success", "error", "animate");
+  }, timeout);
+}
+
 function getRecent() {
   return JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEYS.RECENT) || "[]");
 }
