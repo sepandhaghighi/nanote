@@ -154,7 +154,10 @@ function downloadNote() {
   const defaultName =
     (title.replace(/\s+/g, "_") || CONFIG.FILE.DEFAULT_FILE_NAME) + ".txt";
   const fileName = prompt("Enter file name (example: note.txt):", defaultName);
-  if (!fileName) return;
+  if (!fileName) {
+    showButtonFeedback(DOM.downloadNoteButton, "❌ Error", "error");
+    return;
+  }
   const cleanName = fileName.trim();
   const parts = cleanName.split(".");
   const ext = parts.length > 1 ? parts.pop().toLowerCase() : "";
@@ -165,6 +168,7 @@ function downloadNote() {
   a.download = cleanName;
   a.click();
   URL.revokeObjectURL(a.href);
+  showButtonFeedback(DOM.downloadNoteButton, "✅ Done");
 }
 
 function lockTitle() {
