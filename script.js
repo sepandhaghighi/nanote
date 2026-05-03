@@ -264,7 +264,12 @@ function removeAllNotes() {
 
 function copyNote() {
   if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(DOM.noteText.value);
+    navigator.clipboard.writeText(DOM.noteText.value)
+    .then(() => showButtonFeedback(DOM.copyNoteButton, "✅ Copied"))
+    .catch(() => showButtonFeedback(DOM.copyNoteButton, "❌ Error", "error"));
+  }
+  else {
+    showButtonFeedback(DOM.copyNoteButton, "❌ Error", "error");
   }
 }
 
