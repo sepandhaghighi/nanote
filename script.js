@@ -388,6 +388,7 @@ DOM.copyNoteButton.addEventListener("click", copyNote);
 DOM.exportButton.addEventListener("click", () => {
   const data = getRecent();
   if (!data) {
+    showButtonFeedback(DOM.exportButton, "❌ Error", "error");
     alert(CONFIG.MESSAGES.EXPORT_EMPTY);
     return;
   }
@@ -402,6 +403,7 @@ DOM.exportButton.addEventListener("click", () => {
   a.download = fileName;
   a.click();
   URL.revokeObjectURL(a.href);
+  showButtonFeedback(DOM.exportButton, "✅ Exported");
 });
 
 DOM.importButton.addEventListener("click", () => {
