@@ -376,6 +376,7 @@ DOM.newNoteButton.addEventListener("click", () => {
   updateStats();
   unlockTitle();
   DOM.noteTitle.focus();
+  showButtonFeedback(DOM.newNoteButton, "✨ New");
 });
 
 DOM.copyNoteButton.addEventListener("click", copyNote);
