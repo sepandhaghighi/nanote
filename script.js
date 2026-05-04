@@ -76,6 +76,20 @@ const state = {
   previewMode: false,
 }
 
+function showButtonFeedback(button, message, type = "success", timeout = 1200) {
+  if (!button.dataset.originalText) {
+    button.dataset.originalText = button.innerHTML;
+  }
+
+  button.classList.add("button-feedback", type, "animate");
+  button.innerHTML = message;
+
+  setTimeout(() => {
+    button.innerHTML = button.dataset.originalText;
+    button.classList.remove("success", "error", "animate");
+  }, timeout);
+}
+
 function getRecent() {
   return JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEYS.RECENT) || "[]");
 }
@@ -140,7 +154,10 @@ function downloadNote() {
   const defaultName =
     (title.replace(/\s+/g, "_") || CONFIG.FILE.DEFAULT_FILE_NAME) + ".txt";
   const fileName = prompt("Enter file name (example: note.txt):", defaultName);
-  if (!fileName) return;
+  if (!fileName) {
+    showButtonFeedback(DOM.downloadNoteButton, "❌ Error", "error");
+    return;
+  }
   const cleanName = fileName.trim();
   const parts = cleanName.split(".");
   const ext = parts.length > 1 ? parts.pop().toLowerCase() : "";
@@ -151,6 +168,7 @@ function downloadNote() {
   a.download = cleanName;
   a.click();
   URL.revokeObjectURL(a.href);
+  showButtonFeedback(DOM.downloadNoteButton, "✅ Done");
 }
 
 function lockTitle() {
@@ -245,12 +263,21 @@ function removeAllNotes() {
     setRecent([]);
     unlockTitle();
     renderRecent();
+    showButtonFeedback(DOM.removeAllButton, "🧹 Cleared");
+  }
+  else {
+    showButtonFeedback(DOM.removeAllButton, "❌ Cancel", "error");
   }
 }
 
 function copyNote() {
   if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(DOM.noteText.value);
+    navigator.clipboard.writeText(DOM.noteText.value)
+    .then(() => showButtonFeedback(DOM.copyNoteButton, "✅ Copied"))
+    .catch(() => showButtonFeedback(DOM.copyNoteButton, "❌ Error", "error"));
+  }
+  else {
+    showButtonFeedback(DOM.copyNoteButton, "❌ Error", "error");
   }
 }
 
@@ -306,7 +333,11 @@ DOM.form.addEventListener("submit", function(e) {
   e.preventDefault();
   if (validateForm()) {
     saveNote(DOM.noteTitle.value.trim(), DOM.noteText.value);
+    showButtonFeedback(e.submitter, "✅ Saved");
   }
+  else {
+    showButtonFeedback(e.submitter, "❌ Error", "error");
+  } 
 });
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -349,6 +380,7 @@ DOM.newNoteButton.addEventListener("click", () => {
   updateStats();
   unlockTitle();
   DOM.noteTitle.focus();
+  showButtonFeedback(DOM.newNoteButton, "✨ New");
 });
 
 DOM.copyNoteButton.addEventListener("click", copyNote);
@@ -356,6 +388,7 @@ DOM.copyNoteButton.addEventListener("click", copyNote);
 DOM.exportButton.addEventListener("click", () => {
   const data = getRecent();
   if (!data) {
+    showButtonFeedback(DOM.exportButton, "❌ Error", "error");
     alert(CONFIG.MESSAGES.EXPORT_EMPTY);
     return;
   }
@@ -370,6 +403,7 @@ DOM.exportButton.addEventListener("click", () => {
   a.download = fileName;
   a.click();
   URL.revokeObjectURL(a.href);
+  showButtonFeedback(DOM.exportButton, "✅ Exported");
 });
 
 DOM.importButton.addEventListener("click", () => {
