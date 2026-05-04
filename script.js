@@ -30,6 +30,24 @@ const CONFIG = {
     },
   },
 
+  FEEDBACK: {
+    SUCCESS: {
+      SAVE: "✅ Saved",
+      COPY: "✅ Copied",
+      DOWNLOAD: "✅ Downloaded",
+      EXPORT: "✅ Exported",
+      IMPORT: "✅ Imported",
+      NEW: "✨ New",
+      CLEAR: "🧹 Cleared",
+      DONE: "✅ Done"
+    },
+
+    ERROR: {
+      GENERIC: "❌ Error",
+      CANCEL: "❌ Cancel"
+    }
+  },
+
   MESSAGES: {
     CONFIRM_OVERWRITE: "A note with this title already exists.\nContinuing will overwrite the existing note.\n\nContinue?",
     CONFIRM_REMOVE: "Are you sure you want to remove this note?",
@@ -77,6 +95,8 @@ const state = {
 }
 
 function showButtonFeedback(button, message, type = "success", timeout = 1200) {
+  if (!button) return;
+  
   if (!button.dataset.originalText) {
     button.dataset.originalText = button.innerHTML;
   }
