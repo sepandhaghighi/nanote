@@ -30,6 +30,24 @@ const CONFIG = {
     },
   },
 
+  FEEDBACK: {
+    SUCCESS: {
+      SAVE: "✅ Saved",
+      COPY: "✅ Copied",
+      DOWNLOAD: "✅ Downloaded",
+      EXPORT: "✅ Exported",
+      IMPORT: "✅ Imported",
+      NEW: "✨ New",
+      CLEAR: "🧹 Cleared",
+      DONE: "✅ Done"
+    },
+
+    ERROR: {
+      GENERIC: "❌ Error",
+      CANCEL: "❌ Cancel"
+    }
+  },
+
   MESSAGES: {
     CONFIRM_OVERWRITE: "A note with this title already exists.\nContinuing will overwrite the existing note.\n\nContinue?",
     CONFIRM_REMOVE: "Are you sure you want to remove this note?",
@@ -77,6 +95,8 @@ const state = {
 }
 
 function showButtonFeedback(button, message, type = "success", timeout = 1200) {
+  if (!button) return;
+  
   if (!button.dataset.originalText) {
     button.dataset.originalText = button.innerHTML;
   }
@@ -155,7 +175,7 @@ function downloadNote() {
     (title.replace(/\s+/g, "_") || CONFIG.FILE.DEFAULT_FILE_NAME) + ".txt";
   const fileName = prompt("Enter file name (example: note.txt):", defaultName);
   if (!fileName) {
-    showButtonFeedback(DOM.downloadNoteButton, "❌ Error", "error");
+    showButtonFeedback(DOM.downloadNoteButton, CONFIG.FEEDBACK.ERROR.GENERIC, "error");
     return;
   }
   const cleanName = fileName.trim();
@@ -168,7 +188,7 @@ function downloadNote() {
   a.download = cleanName;
   a.click();
   URL.revokeObjectURL(a.href);
-  showButtonFeedback(DOM.downloadNoteButton, "✅ Done");
+  showButtonFeedback(DOM.downloadNoteButton, CONFIG.FEEDBACK.SUCCESS.DONE);
 }
 
 function lockTitle() {
@@ -263,21 +283,21 @@ function removeAllNotes() {
     setRecent([]);
     unlockTitle();
     renderRecent();
-    showButtonFeedback(DOM.removeAllButton, "🧹 Cleared");
+    showButtonFeedback(DOM.removeAllButton, CONFIG.FEEDBACK.SUCCESS.CLEAR);
   }
   else {
-    showButtonFeedback(DOM.removeAllButton, "❌ Cancel", "error");
+    showButtonFeedback(DOM.removeAllButton, CONFIG.FEEDBACK.ERROR.CANCEL, "error");
   }
 }
 
 function copyNote() {
   if (navigator.clipboard && window.isSecureContext) {
     navigator.clipboard.writeText(DOM.noteText.value)
-    .then(() => showButtonFeedback(DOM.copyNoteButton, "✅ Copied"))
-    .catch(() => showButtonFeedback(DOM.copyNoteButton, "❌ Error", "error"));
+    .then(() => showButtonFeedback(DOM.copyNoteButton, CONFIG.FEEDBACK.SUCCESS.COPY))
+    .catch(() => showButtonFeedback(DOM.copyNoteButton, CONFIG.FEEDBACK.ERROR.GENERIC, "error"));
   }
   else {
-    showButtonFeedback(DOM.copyNoteButton, "❌ Error", "error");
+    showButtonFeedback(DOM.copyNoteButton, CONFIG.FEEDBACK.ERROR.GENERIC, "error");
   }
 }
 
@@ -333,10 +353,10 @@ DOM.form.addEventListener("submit", function(e) {
   e.preventDefault();
   if (validateForm()) {
     saveNote(DOM.noteTitle.value.trim(), DOM.noteText.value);
-    showButtonFeedback(e.submitter, "✅ Saved");
+    showButtonFeedback(e.submitter, CONFIG.FEEDBACK.SUCCESS.SAVE);
   }
   else {
-    showButtonFeedback(e.submitter, "❌ Error", "error");
+    showButtonFeedback(e.submitter, CONFIG.FEEDBACK.ERROR.GENERIC, "error");
   } 
 });
 
@@ -380,7 +400,7 @@ DOM.newNoteButton.addEventListener("click", () => {
   updateStats();
   unlockTitle();
   DOM.noteTitle.focus();
-  showButtonFeedback(DOM.newNoteButton, "✨ New");
+  showButtonFeedback(DOM.newNoteButton, CONFIG.FEEDBACK.SUCCESS.NEW);
 });
 
 DOM.copyNoteButton.addEventListener("click", copyNote);
@@ -388,7 +408,7 @@ DOM.copyNoteButton.addEventListener("click", copyNote);
 DOM.exportButton.addEventListener("click", () => {
   const data = getRecent();
   if (!data) {
-    showButtonFeedback(DOM.exportButton, "❌ Error", "error");
+    showButtonFeedback(DOM.exportButton, CONFIG.FEEDBACK.ERROR.GENERIC, "error");
     alert(CONFIG.MESSAGES.EXPORT_EMPTY);
     return;
   }
@@ -403,7 +423,7 @@ DOM.exportButton.addEventListener("click", () => {
   a.download = fileName;
   a.click();
   URL.revokeObjectURL(a.href);
-  showButtonFeedback(DOM.exportButton, "✅ Exported");
+  showButtonFeedback(DOM.exportButton, CONFIG.FEEDBACK.SUCCESS.EXPORT);
 });
 
 DOM.importButton.addEventListener("click", () => {
