@@ -262,6 +262,9 @@ function loadNote(title, text, saveDate) {
   DOM.lastSave.style.display = "block";
   DOM.noteSaveDate.textContent = new Date(saveDate).toLocaleString();
   updateStats();
+  if (state.previewMode) {
+    renderMarkdown();
+  }
 }
 
 function removeNote(title) {
