@@ -159,6 +159,9 @@ function openNoteFromFile(file) {
     DOM.noteTitle.value = name;
     unlockTitle();
     updateStats();
+    if (state.previewMode) {
+      renderMarkdown();
+    }
   };
 
   reader.readAsText(file);
