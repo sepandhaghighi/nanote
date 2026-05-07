@@ -104,12 +104,12 @@ function showButtonFeedback(button, message, type = "success", timeout = 1200) {
     button.dataset.originalText = button.innerHTML;
   }
 
-  button.classList.add("button-feedback", type, "animate");
+  button.classList.add("button-feedback", type);
   button.innerHTML = message;
 
   setTimeout(() => {
     button.innerHTML = button.dataset.originalText;
-    button.classList.remove("success", "error", "animate");
+    button.classList.remove("success", "error", "cancel");
   }, timeout);
 }
 
