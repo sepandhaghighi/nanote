@@ -44,7 +44,10 @@ const CONFIG = {
 
     ERROR: {
       GENERIC: "❌ Error",
-      CANCEL: "❌ Cancel"
+    },
+
+    CANCEL: {
+      DEFAULT: "❌ Canceled"
     }
   },
 
