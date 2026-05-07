@@ -181,7 +181,7 @@ function downloadNote() {
     (title.replace(/\s+/g, "_") || CONFIG.FILE.DEFAULT_FILE_NAME) + ".txt";
   const fileName = prompt("Enter file name (example: note.txt):", defaultName);
   if (!fileName) {
-    showButtonFeedback(DOM.downloadNoteButton, CONFIG.FEEDBACK.ERROR.GENERIC, "error");
+    showButtonFeedback(DOM.downloadNoteButton, CONFIG.FEEDBACK.CANCEL.DEFAULT, "cancel");
     return;
   }
   const cleanName = fileName.trim();
@@ -295,7 +295,7 @@ function removeAllNotes() {
     showButtonFeedback(DOM.removeAllButton, CONFIG.FEEDBACK.SUCCESS.CLEAR);
   }
   else {
-    showButtonFeedback(DOM.removeAllButton, CONFIG.FEEDBACK.ERROR.CANCEL, "error");
+    showButtonFeedback(DOM.removeAllButton, CONFIG.FEEDBACK.CANCEL.DEFAULT, "cancel");
   }
 }
 
@@ -440,7 +440,12 @@ DOM.importButton.addEventListener("click", () => {
   if (recent.length > 0) {
     const ok = confirm(
     CONFIG.MESSAGES.CONFIRM_IMPORT);
-    if (ok) DOM.recentFile.click();
+    if (ok) {
+      DOM.recentFile.click();
+    }
+    else {
+      showButtonFeedback(DOM.importButton, CONFIG.FEEDBACK.CANCEL.DEFAULT, "cancel");
+    }
   }
   else {
     DOM.recentFile.click();
@@ -456,7 +461,14 @@ DOM.noteTitle.addEventListener("input", () => {
 
 DOM.recentFile.addEventListener("change", () => {
   const file = DOM.recentFile.files[0];
-  if (!file) return;
+  if (!file) {
+    showButtonFeedback(
+      DOM.importButton,
+      CONFIG.FEEDBACK.CANCEL.DEFAULT,
+      "cancel"
+    );
+    return;
+  }
   const reader = new FileReader();
   reader.onload = () => {
     try {
@@ -476,8 +488,10 @@ DOM.recentFile.addEventListener("change", () => {
         loadNote(parsed[0].title, parsed[0].text, parsed[0].saveDate);
       }
       alert(CONFIG.MESSAGES.IMPORT_SUCCESS);
+      showButtonFeedback(DOM.importButton, CONFIG.FEEDBACK.SUCCESS.IMPORT);
     } catch {
       alert(CONFIG.MESSAGES.IMPORT_ERROR);
+      showButtonFeedback(DOM.importButton, CONFIG.FEEDBACK.ERROR.GENERIC, "error");
     }
     DOM.recentFile.value = "";
   };
