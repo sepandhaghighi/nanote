@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `openNoteFromFile` function Markdown render bug fixed
 - `loadNote` function Markdown render bug fixed
 - Button feedback mechanism modified
+- Remove-all button bug fixed
 ## [0.6] - 2026-05-06
 ### Added
 - Button feedback mechanism for user actions
