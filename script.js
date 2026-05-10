@@ -242,21 +242,26 @@ function truncateTitle(title, maxLength = CONFIG.LIMITS.TITLE_MAX_LENGTH) {
   return title.length > maxLength ? title.slice(0, maxLength - 3) + "..." : title;
 }
 
-function validateForm() {
+function validateForm(callback) {
   const titleText = DOM.noteTitle.value.trim();
   if (titleText.length === 0) {
     DOM.noteTitle.setCustomValidity("please fill out this field");
     DOM.noteTitle.reportValidity();
-    return false;
+    callback(false);
+    return;
   }
   DOM.noteTitle.setCustomValidity("");
   let recent = getRecent();
   recent = recent.filter(item => item.title === titleText);
   if (recent.length > 0 && !state.currentNoteTitle) {
-    const ok = confirm(CONFIG.MESSAGES.CONFIRM_OVERWRITE);
-    return ok;
+    showConfirm(CONFIG.MESSAGES.CONFIRM_OVERWRITE)
+    .then(result => {
+      callback(result.isConfirmed);
+    });
   }
-  return true;
+  else {
+    callback(true);
+  }
 }
 
 function updateStats() {
