@@ -209,7 +209,7 @@ function downloadNote() {
   const defaultName =
     (title.replace(/\s+/g, "_") || CONFIG.FILE.DEFAULT_FILE_NAME) + ".txt";
   showPrompt(
-    "File name (example: note.txt):",
+    "File Name:",
     defaultName
   )
   .then(result => {
@@ -569,7 +569,7 @@ window.addEventListener("resize", renderRecent);
 function showUpdateAlert(registration) {
   showConfirm(
     "🚀 A new version is available. Reload now?",
-    "info"
+    {"icon": "info"}
   )
   .then(result => {
     if (result.isConfirmed) {
