@@ -81,6 +81,12 @@ Then open your browser and visit:
 http://localhost:8000
 ```
 
+## Dependencies
+
+- [SweetAlert2](https://sweetalert2.github.io/) v11.26.24
+- [Marked](https://github.com/markedjs/marked) v15.0.12
+- [DOMPurify](https://github.com/cure53/DOMPurify) v3.0.6
+
 ## Issues & Bug Reports
 
 Just fill an issue and describe it. We'll check it ASAP! or send an email to [info@nanote.ir](mailto:info@nanote.ir "info@nanote.ir"). 

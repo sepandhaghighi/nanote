@@ -15,6 +15,8 @@ const appShell = [
   "assets/favicon/favicon-96x96.png",
   "libs/purify.min.js",
   "libs/marked.min.js",
+  "libs/sweetalert2/sweetalert2.min.css",
+  "libs/sweetalert2/sweetalert2.min.js",
 ];
 
 

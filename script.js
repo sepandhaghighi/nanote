@@ -97,6 +97,35 @@ const state = {
   previewMode: false,
 }
 
+function showAlert(text, icon = "info") {
+  return Swal.fire({
+    icon,
+    text,
+    confirmButtonText: "OK"
+  });
+}
+
+function showConfirm(text, options = {}) {
+  return Swal.fire({
+    icon: options.icon || "warning",
+    text,
+    showCancelButton: true,
+    confirmButtonText: options.confirmText || "OK",
+    cancelButtonText: options.cancelText || "Cancel"
+  });
+}
+
+function showPrompt(title, defaultValue = "", options = {}) {
+  return Swal.fire({
+    title,
+    input: "text",
+    inputValue: defaultValue,
+    showCancelButton: true,
+    confirmButtonText: options.confirmText || "OK",
+    cancelButtonText: options.cancelText || "Cancel"
+  });
+}
+
 function showButtonFeedback(button, message, type = "success", timeout = 1200) {
   if (!button) return;
   
@@ -179,22 +208,32 @@ function downloadNote() {
   const text = DOM.noteText.value;
   const defaultName =
     (title.replace(/\s+/g, "_") || CONFIG.FILE.DEFAULT_FILE_NAME) + ".txt";
-  const fileName = prompt("Enter file name (example: note.txt):", defaultName);
-  if (!fileName) {
-    showButtonFeedback(DOM.downloadNoteButton, CONFIG.FEEDBACK.CANCEL.DEFAULT, "cancel");
-    return;
-  }
-  const cleanName = fileName.trim();
-  const parts = cleanName.split(".");
-  const ext = parts.length > 1 ? parts.pop().toLowerCase() : "";
-  const mime = getMimeType(ext);
-  const blob = new Blob([text], { type: mime });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = cleanName;
-  a.click();
-  URL.revokeObjectURL(a.href);
-  showButtonFeedback(DOM.downloadNoteButton, CONFIG.FEEDBACK.SUCCESS.DONE);
+  showPrompt(
+    "File Name:",
+    defaultName
+  )
+  .then(result => {
+    if (!result.isConfirmed || !result.value) {
+      showButtonFeedback(
+        DOM.downloadNoteButton,
+        CONFIG.FEEDBACK.CANCEL.DEFAULT,
+        "cancel"
+      );
+
+      return;
+    }
+    const cleanName = result.value.trim();
+    const parts = cleanName.split(".");
+    const ext = parts.length > 1 ? parts.pop().toLowerCase() : "";
+    const mime = getMimeType(ext);
+    const blob = new Blob([text], { type: mime });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = cleanName;
+    a.click();
+    URL.revokeObjectURL(a.href);
+    showButtonFeedback(DOM.downloadNoteButton, CONFIG.FEEDBACK.SUCCESS.DONE);
+  });
 }
 
 function lockTitle() {
@@ -213,21 +252,26 @@ function truncateTitle(title, maxLength = CONFIG.LIMITS.TITLE_MAX_LENGTH) {
   return title.length > maxLength ? title.slice(0, maxLength - 3) + "..." : title;
 }
 
-function validateForm() {
+function validateForm(callback) {
   const titleText = DOM.noteTitle.value.trim();
   if (titleText.length === 0) {
     DOM.noteTitle.setCustomValidity("please fill out this field");
     DOM.noteTitle.reportValidity();
-    return false;
+    callback(false);
+    return;
   }
   DOM.noteTitle.setCustomValidity("");
   let recent = getRecent();
   recent = recent.filter(item => item.title === titleText);
   if (recent.length > 0 && !state.currentNoteTitle) {
-    const ok = confirm(CONFIG.MESSAGES.CONFIRM_OVERWRITE);
-    return ok;
+    showConfirm(CONFIG.MESSAGES.CONFIRM_OVERWRITE)
+    .then(result => {
+      callback(result.isConfirmed);
+    });
   }
-  return true;
+  else {
+    callback(true);
+  }
 }
 
 function updateStats() {
@@ -274,29 +318,33 @@ function loadNote(title, text, saveDate) {
 }
 
 function removeNote(title) {
-  const ok = confirm(CONFIG.MESSAGES.CONFIRM_REMOVE);
-  if (ok) {
-    let recent = getRecent();
-    recent = recent.filter(item => !(item.title===title));
-    setRecent(recent);
-    if (state.currentNoteTitle === title) {
-      unlockTitle();
+  showConfirm(CONFIG.MESSAGES.CONFIRM_REMOVE)
+  .then(result => {
+    if (result.isConfirmed) {
+      let recent = getRecent();
+      recent = recent.filter(item => !(item.title===title));
+      setRecent(recent);
+      if (state.currentNoteTitle === title) {
+        unlockTitle();
+      }
+      renderRecent();
     }
-    renderRecent();
-  }
+  });
 }
 
 function removeAllNotes() {
-  const ok = confirm(CONFIG.MESSAGES.CONFIRM_REMOVE_ALL);
-  if (ok) {
-    setRecent([]);
-    unlockTitle();
-    renderRecent();
-    showButtonFeedback(DOM.removeAllButton, CONFIG.FEEDBACK.SUCCESS.CLEAR);
-  }
-  else {
-    showButtonFeedback(DOM.removeAllButton, CONFIG.FEEDBACK.CANCEL.DEFAULT, "cancel");
-  }
+  showConfirm(CONFIG.MESSAGES.CONFIRM_REMOVE_ALL)
+  .then(result => {
+    if (result.isConfirmed) {
+      setRecent([]);
+      unlockTitle();
+      renderRecent();
+      showButtonFeedback(DOM.removeAllButton, CONFIG.FEEDBACK.SUCCESS.CLEAR);
+    }
+    else {
+      showButtonFeedback(DOM.removeAllButton, CONFIG.FEEDBACK.CANCEL.DEFAULT, "cancel");
+    }
+  });
 }
 
 function copyNote() {
@@ -360,13 +408,15 @@ function renderRecent(){
 
 DOM.form.addEventListener("submit", function(e) {
   e.preventDefault();
-  if (validateForm()) {
-    saveNote(DOM.noteTitle.value.trim(), DOM.noteText.value);
-    showButtonFeedback(e.submitter, CONFIG.FEEDBACK.SUCCESS.SAVE);
-  }
-  else {
-    showButtonFeedback(e.submitter, CONFIG.FEEDBACK.ERROR.GENERIC, "error");
-  } 
+  validateForm(ok => {
+    if (ok) {
+      saveNote(DOM.noteTitle.value.trim(), DOM.noteText.value);
+      showButtonFeedback(e.submitter, CONFIG.FEEDBACK.SUCCESS.SAVE);
+    }
+    else {
+      showButtonFeedback(e.submitter, CONFIG.FEEDBACK.ERROR.GENERIC, "error");
+    }
+  });
 });
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -382,14 +432,15 @@ DOM.noteText.addEventListener("input", () => {
   updateStats();
   if (DOM.autoSave.checked){
     if (!state.currentNoteTitle) {
-      const ok = validateForm();
-      if (ok) {
-        saveNote(DOM.noteTitle.value.trim(), DOM.noteText.value);
-      }
-      else {
-        DOM.autoSave.checked = false;
-        alert(CONFIG.MESSAGES.AUTO_SAVE_DISABLED)
-      }
+      validateForm(ok => {
+        if (ok) {
+          saveNote(DOM.noteTitle.value.trim(), DOM.noteText.value);
+        }
+        else {
+          DOM.autoSave.checked = false;
+          showAlert(CONFIG.MESSAGES.AUTO_SAVE_DISABLED, "warning");
+        }
+      });
     }
     else {
       saveNote(DOM.noteTitle.value.trim(), DOM.noteText.value);
@@ -418,34 +469,50 @@ DOM.exportButton.addEventListener("click", () => {
   const data = getRecent();
   if (!data) {
     showButtonFeedback(DOM.exportButton, CONFIG.FEEDBACK.ERROR.GENERIC, "error");
-    alert(CONFIG.MESSAGES.EXPORT_EMPTY);
+    showAlert(CONFIG.MESSAGES.EXPORT_EMPTY, "error");
     return;
   }
-  let fileName = prompt("File Name:", CONFIG.FILE.EXPORT_FILE_NAME).trim();
-  fileName = fileName.replaceAll(" ", "-");
-  if (!fileName) {
-    fileName = CONFIG.FILE.EXPORT_FILE_NAME;
-  }
-  const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = fileName;
-  a.click();
-  URL.revokeObjectURL(a.href);
-  showButtonFeedback(DOM.exportButton, CONFIG.FEEDBACK.SUCCESS.EXPORT);
+  showPrompt(
+    "File Name:",
+    CONFIG.FILE.EXPORT_FILE_NAME
+  )
+  .then(result => {
+    if (!result.isConfirmed) {
+      showButtonFeedback(
+        DOM.exportButton,
+        CONFIG.FEEDBACK.CANCEL.DEFAULT,
+        "cancel"
+      );
+
+      return;
+    }
+    let fileName = result.value.trim();
+    fileName = fileName.replaceAll(" ", "-");
+    if (!fileName) {
+      fileName = CONFIG.FILE.EXPORT_FILE_NAME;
+    }
+    const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = fileName;
+    a.click();
+    URL.revokeObjectURL(a.href);
+    showButtonFeedback(DOM.exportButton, CONFIG.FEEDBACK.SUCCESS.EXPORT);
+  });
 });
 
 DOM.importButton.addEventListener("click", () => {
   const recent = getRecent();
   if (recent.length > 0) {
-    const ok = confirm(
-    CONFIG.MESSAGES.CONFIRM_IMPORT);
-    if (ok) {
-      DOM.recentFile.click();
-    }
-    else {
-      showButtonFeedback(DOM.importButton, CONFIG.FEEDBACK.CANCEL.DEFAULT, "cancel");
-    }
+    showConfirm(CONFIG.MESSAGES.CONFIRM_IMPORT)
+    .then(result => {
+      if (result.isConfirmed) {
+        DOM.recentFile.click();
+      }
+      else {
+        showButtonFeedback(DOM.importButton, CONFIG.FEEDBACK.CANCEL.DEFAULT, "cancel");
+      }
+    });
   }
   else {
     DOM.recentFile.click();
@@ -487,10 +554,10 @@ DOM.recentFile.addEventListener("change", () => {
       if (parsed.length > 0) {
         loadNote(parsed[0].title, parsed[0].text, parsed[0].saveDate);
       }
-      alert(CONFIG.MESSAGES.IMPORT_SUCCESS);
+      showAlert(CONFIG.MESSAGES.IMPORT_SUCCESS, "success");
       showButtonFeedback(DOM.importButton, CONFIG.FEEDBACK.SUCCESS.IMPORT);
     } catch {
-      alert(CONFIG.MESSAGES.IMPORT_ERROR);
+      showAlert(CONFIG.MESSAGES.IMPORT_ERROR, "error");
       showButtonFeedback(DOM.importButton, CONFIG.FEEDBACK.ERROR.GENERIC, "error");
     }
     DOM.recentFile.value = "";
@@ -500,9 +567,20 @@ DOM.recentFile.addEventListener("change", () => {
 window.addEventListener("resize", renderRecent);
 
 function showUpdateAlert(registration) {
-  if (confirm("🚀 A new version is available. Reload now?")) {
-    registration.waiting.postMessage({ type: "SKIP_WAITING" });
-  }
+  showConfirm(
+    "🚀 A new version is available. Reload now?",
+    {
+    icon: "info",
+    confirmText: "Reload"
+    }
+  )
+  .then(result => {
+    if (result.isConfirmed) {
+      registration.waiting.postMessage({
+        type: "SKIP_WAITING"
+      });
+    }
+  });
 }
 
 if ("serviceWorker" in navigator) {
