@@ -569,7 +569,10 @@ window.addEventListener("resize", renderRecent);
 function showUpdateAlert(registration) {
   showConfirm(
     "🚀 A new version is available. Reload now?",
-    {"icon": "info"}
+    {
+    icon: "info",
+    confirmText: "Reload"
+    }
   )
   .then(result => {
     if (result.isConfirmed) {
