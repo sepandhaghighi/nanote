@@ -97,11 +97,11 @@ const state = {
   previewMode: false,
 }
 
-function showAlert(text, icon = "info") {
+function showAlert(text, options = {}) {
   return Swal.fire({
-    icon,
+    icon: options.icon || "info",
     text,
-    confirmButtonText: "OK"
+    confirmButtonText: options.confirmText || "OK",
   });
 }
 
@@ -438,7 +438,7 @@ DOM.noteText.addEventListener("input", () => {
         }
         else {
           DOM.autoSave.checked = false;
-          showAlert(CONFIG.MESSAGES.AUTO_SAVE_DISABLED, "warning");
+          showAlert(CONFIG.MESSAGES.AUTO_SAVE_DISABLED, {icon: "warning"});
         }
       });
     }
@@ -469,7 +469,7 @@ DOM.exportButton.addEventListener("click", () => {
   const data = getRecent();
   if (!data) {
     showButtonFeedback(DOM.exportButton, CONFIG.FEEDBACK.ERROR.GENERIC, "error");
-    showAlert(CONFIG.MESSAGES.EXPORT_EMPTY, "error");
+    showAlert(CONFIG.MESSAGES.EXPORT_EMPTY, {icon: "error"});
     return;
   }
   showPrompt(
@@ -554,10 +554,10 @@ DOM.recentFile.addEventListener("change", () => {
       if (parsed.length > 0) {
         loadNote(parsed[0].title, parsed[0].text, parsed[0].saveDate);
       }
-      showAlert(CONFIG.MESSAGES.IMPORT_SUCCESS, "success");
+      showAlert(CONFIG.MESSAGES.IMPORT_SUCCESS, {icon: "success"});
       showButtonFeedback(DOM.importButton, CONFIG.FEEDBACK.SUCCESS.IMPORT);
     } catch {
-      showAlert(CONFIG.MESSAGES.IMPORT_ERROR, "error");
+      showAlert(CONFIG.MESSAGES.IMPORT_ERROR, {icon: "error"});
       showButtonFeedback(DOM.importButton, CONFIG.FEEDBACK.ERROR.GENERIC, "error");
     }
     DOM.recentFile.value = "";
