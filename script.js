@@ -567,6 +567,7 @@ DOM.recentFile.addEventListener("change", () => {
 window.addEventListener("resize", renderRecent);
 
 function showUpdateAlert(registration) {
+  if (!registration.waiting) return;
   showConfirm(
     "🚀 A new version is available. Reload now?",
     {
