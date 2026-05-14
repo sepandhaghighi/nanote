@@ -625,8 +625,6 @@ window.addEventListener("appinstalled", () => {
 
 window.addEventListener("beforeinstallprompt", (event) => {
   event.preventDefault();
-
-  // Save the event
   deferredPrompt = event;
 
   if (!isInstalled) {
