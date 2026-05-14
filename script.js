@@ -194,6 +194,7 @@ function openNoteFromFile(file) {
     if (state.previewMode) {
       renderMarkdown();
     }
+    showButtonFeedback(DOM.openNoteButton, CONFIG.FEEDBACK.SUCCESS.DONE);
   };
 
   reader.readAsText(file);
