@@ -59,7 +59,8 @@ const CONFIG = {
     AUTO_SAVE_DISABLED: "Auto-save was turned off because the note was not saved.\nYou can turn it back later.",
     EXPORT_EMPTY: "No recent data to export.",
     IMPORT_SUCCESS: "Recent notes imported successfully.",
-    IMPORT_ERROR: "Invalid recent data file."
+    IMPORT_ERROR: "Invalid recent data file.",
+    UPDATE_AVAILABLE: "🚀 A new version is available. Reload now?",
   },
 
 }
@@ -570,7 +571,7 @@ window.addEventListener("resize", renderRecent);
 function showUpdateAlert(registration) {
   if (!registration.waiting) return;
   showConfirm(
-    "🚀 A new version is available. Reload now?",
+    CONFIG.MESSAGES.UPDATE_AVAILABLE,
     {
     icon: "info",
     confirmText: "Reload"
