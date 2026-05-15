@@ -32,22 +32,22 @@ const CONFIG = {
 
   FEEDBACK: {
     SUCCESS: {
-      SAVE: "✅ Saved",
-      COPY: "✅ Copied",
-      DOWNLOAD: "✅ Downloaded",
-      EXPORT: "✅ Exported",
-      IMPORT: "✅ Imported",
-      NEW: "✨ New",
-      CLEAR: "🧹 Cleared",
-      DONE: "✅ Done"
+      SAVE: '<i class="fa-solid fa-check"></i> Saved',
+      COPY: '<i class="fa-solid fa-check"></i> Copied',
+      DOWNLOAD: '<i class="fa-solid fa-check"></i> Downloaded',
+      EXPORT: '<i class="fa-solid fa-check"></i> Exported',
+      IMPORT: '<i class="fa-solid fa-check"></i> Imported',
+      NEW: '<i class="fa-solid fa-sparkles"></i> New',
+      CLEAR: '<i class="fa-solid fa-broom"></i> Cleared',
+      DONE: '<i class="fa-solid fa-check"></i> Done'
     },
 
     ERROR: {
-      GENERIC: "❌ Error",
+      GENERIC: '<i class="fa-solid fa-xmark"></i> Error',
     },
 
     CANCEL: {
-      DEFAULT: "❌ Canceled"
+      DEFAULT: '<i class="fa-solid fa-ban"></i> Canceled',
     }
   },
 
@@ -60,7 +60,7 @@ const CONFIG = {
     EXPORT_EMPTY: "No recent data to export.",
     IMPORT_SUCCESS: "Recent notes imported successfully.",
     IMPORT_ERROR: "Invalid recent data file.",
-    UPDATE_AVAILABLE: "🚀 A new version is available. Reload now?",
+    UPDATE_AVAILABLE: "A new version is available. Reload now?",
   },
 
 }
@@ -173,11 +173,11 @@ function togglePreview() {
     renderMarkdown();
     DOM.markdownPreview.style.display = "block";
     DOM.noteText.style.display = "none";
-    DOM.previewToggleButton.textContent = "✏️ Edit";
+    DOM.previewToggleButton.innerHTML = '<i class="fa-solid fa-pen"></i> Edit';
   } else {
     DOM.markdownPreview.style.display = "none";
     DOM.noteText.style.display = "block";
-    DOM.previewToggleButton.textContent = "👁 MD Preview";
+    DOM.previewToggleButton.innerHTML = '<i class="fa-regular fa-eye"></i> MD Preview';
   }
 }
 
@@ -369,7 +369,7 @@ function createRecentItem(item, maxLimit) {
   const spanSaveDate = document.createElement("span");
   spanTitle.textContent = truncateTitle(item.title, maxLimit);
   spanTitle.className = "recent-title";
-  spanRemove.textContent = "🗑️";
+  spanRemove.innerHTML = '<i class="fa-regular fa-trash-can"></i>';
   spanRemove.className = "recent-remove";
   if (nowDate.toLocaleDateString() === new Date(item.saveDate).toLocaleDateString()) {
     spanSaveDate.textContent = new Date(item.saveDate).toLocaleTimeString();
