@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `showAlert` function modified
 - Update bug fixed
 - Button feedback mechanism modified
+- `README.md` updated
+- Icons updated
 ## [0.7] - 2026-05-12
 ### Added
 - `showAlert` function

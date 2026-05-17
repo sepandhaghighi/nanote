@@ -17,6 +17,11 @@ const appShell = [
   "libs/marked.min.js",
   "libs/sweetalert2/sweetalert2.min.css",
   "libs/sweetalert2/sweetalert2.min.js",
+  "libs/fontawesome/css/all.min.css",
+  "libs/fontawesome/webfonts/fa-brands-400.woff2",
+  "libs/fontawesome/webfonts/fa-regular-400.woff2",
+  "libs/fontawesome/webfonts/fa-solid-900.woff2",
+  "libs/fontawesome/webfonts/fa-v4compatibility.woff2",
 ];
 
 
