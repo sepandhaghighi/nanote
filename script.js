@@ -98,6 +98,16 @@ const state = {
   previewMode: false,
 }
 
+function getFileBaseName(filename) {
+  const parts = filename.split(".");
+  
+  if (parts.length <= 1) {
+    return filename;
+  }
+
+  return parts.slice(0, -1).join(".");
+}
+
 function showAlert(text, options = {}) {
   return Swal.fire({
     icon: options.icon || "info",
