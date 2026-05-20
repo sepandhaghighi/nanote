@@ -198,7 +198,7 @@ function openNoteFromFile(file) {
   reader.onload = () => {
     const content = reader.result;
     DOM.noteText.value = content;
-    const name = file.name.replace(/\.[^/.]+$/, "");
+    const name = getFileBaseName(file.name);
     DOM.noteTitle.value = name;
     unlockTitle();
     updateStats();
