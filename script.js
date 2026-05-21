@@ -98,6 +98,16 @@ const state = {
   previewMode: false,
 }
 
+function getFileBaseName(filename) {
+  const parts = filename.split(".");
+  
+  if (parts.length <= 1) {
+    return filename;
+  }
+
+  return parts.slice(0, -1).join(".");
+}
+
 function showAlert(text, options = {}) {
   return Swal.fire({
     icon: options.icon || "info",
@@ -188,7 +198,7 @@ function openNoteFromFile(file) {
   reader.onload = () => {
     const content = reader.result;
     DOM.noteText.value = content;
-    const name = file.name.replace(/\.[^/.]+$/, "");
+    const name = getFileBaseName(file.name);
     DOM.noteTitle.value = name;
     unlockTitle();
     updateStats();
