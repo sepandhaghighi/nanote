@@ -43,27 +43,27 @@ Nanote is a minimal, fast, and lightweight Progressive Web App (PWA) for creatin
 
 ## Usage
 
-- **New**: Click ➕ to create a new note
+- **New**: Create a new note
 
-- **Save**: Click 💾 to save the note
+- **Save**: Save the current note
 
-- **Autosave**: Enable to save automatically while typing
+- **Autosave**: Enable automatic saving while typing
 
-- **Copy**: Click 📋 to copy note text to the clipboard
+- **Copy**: Copy note text to the clipboard
 
-- **Download**: Click ⬇️ to download the current note as a file
+- **Download**: Download the current note as a file
 
-- **Open**: Click 📂 to open and load a text file into the editor
+- **Open**: Open and load a text file into the editor
 
-- **Preview**: Click 👁 to toggle Markdown preview mode
+- **Preview**: Toggle Markdown preview mode
 
-- **Import**: Click ⬇️ to load notes from a `JSON` file
+- **Import**: Load notes from a `JSON` file
 
-- **Export**: Click ⬆️ to save notes to a `JSON` file
+- **Export**: Save notes to a `JSON` file
 
-- **Remove**: Click 🗑️ to remove the note
+- **Remove**: Remove the current note
 
-- **Remove All**: Click 🧹 to remove all notes
+- **Remove All**: Remove all notes
 
 ## Local Development
 
