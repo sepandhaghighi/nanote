@@ -88,6 +88,7 @@ const DOM = {
   removeAllButton: document.getElementById("remove-all-button"),
   charCount: document.getElementById("char-count"),
   wordCount: document.getElementById("word-count"),
+  readingTime: document.getElementById("reading-time"),
   previewToggleButton: document.getElementById("preview-toggle"),
   markdownPreview: document.getElementById("markdown-preview"),
 }
@@ -293,9 +294,12 @@ function updateStats() {
   const words = text.trim().length === 0
     ? 0
     : text.trim().split(/\s+/).length;
+  
+  const readingMinutes = Math.max(1, Math.ceil(words / 200));
 
   DOM.charCount.textContent = `${chars} chars`;
   DOM.wordCount.textContent = `${words} words`;
+  DOM.readingTime.textContent = words === 0 ? "0 min read" : `${readingMinutes} min read`;
 }
 
 function saveNote(title, text) {
