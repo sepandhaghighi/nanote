@@ -421,6 +421,18 @@ function renderRecent(){
   DOM.removeAllButton.style.display = recent.length ? "inline-block" : "none";
 }
 
+function resetCurrentNote() {
+  DOM.noteTitle.value = "";
+  DOM.noteText.value = "";
+  DOM.noteSaveDate.textContent = "";
+  DOM.lastSave.style.display = "none";
+  unlockTitle();
+  updateStats();
+  if (state.previewMode) {
+    renderMarkdown();
+  }
+}
+
 
 DOM.form.addEventListener("submit", function(e) {
   e.preventDefault();
