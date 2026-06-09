@@ -421,6 +421,18 @@ function renderRecent(){
   DOM.removeAllButton.style.display = recent.length ? "inline-block" : "none";
 }
 
+function resetCurrentNote() {
+  DOM.noteTitle.value = "";
+  DOM.noteText.value = "";
+  DOM.noteSaveDate.textContent = "";
+  DOM.lastSave.style.display = "none";
+  unlockTitle();
+  updateStats();
+  if (state.previewMode) {
+    renderMarkdown();
+  }
+}
+
 
 DOM.form.addEventListener("submit", function(e) {
   e.preventDefault();
@@ -469,12 +481,7 @@ DOM.autoSave.addEventListener("change", () => {
 })
 
 DOM.newNoteButton.addEventListener("click", () => {
-  DOM.noteTitle.value = "";
-  DOM.noteText.value = "";
-  DOM.noteSaveDate.textContent = "";
-  DOM.lastSave.style.display = "none";
-  updateStats();
-  unlockTitle();
+  resetCurrentNote();
   DOM.noteTitle.focus();
   showButtonFeedback(DOM.newNoteButton, CONFIG.FEEDBACK.SUCCESS.NEW);
 });
