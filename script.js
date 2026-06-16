@@ -704,3 +704,12 @@ DOM.openFileInput.addEventListener("change", () => {
 });
 
 DOM.previewToggleButton.addEventListener("click", togglePreview);
+
+document.addEventListener("keydown", (event) => {
+  const isSaveShortcut = (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s";
+  if (!isSaveShortcut) {
+    return;
+  }
+  event.preventDefault();
+  DOM.form.requestSubmit();
+});
