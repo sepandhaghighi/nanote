@@ -52,6 +52,7 @@ const CONFIG = {
   },
 
   MESSAGES: {
+    CONFIRM_CLEAR: "Are you sure you want to clear the current note text?",
     CONFIRM_OVERWRITE: "A note with this title already exists.\nContinuing will overwrite the existing note.\n\nContinue?",
     CONFIRM_REMOVE: "Are you sure you want to remove this note?",
     CONFIRM_REMOVE_ALL: "Are you sure you want to remove all notes? This action cannot be undone.",
@@ -74,6 +75,7 @@ const DOM = {
   noteSaveDate: document.getElementById("note-save-date"),
   autoSave: document.getElementById("auto-save"),
   recentItems: document.getElementById("recent-items"),
+  clearNoteButton: document.getElementById("clear-note"),
   newNoteButton: document.getElementById("new-note"),
   copyNoteButton: document.getElementById("copy-note"),
   downloadNoteButton: document.getElementById("download-note"),
@@ -374,6 +376,23 @@ function copyNote() {
   }
 }
 
+function clearNote() {
+  showConfirm(CONFIG.MESSAGES.CONFIRM_CLEAR)
+  .then(result => {
+    if (!result.isConfirmed) {
+      showButtonFeedback(DOM.clearNoteButton, CONFIG.FEEDBACK.CANCEL.DEFAULT, "cancel");
+      return;
+    }
+    DOM.noteText.value = "";
+
+    if (state.previewMode) {
+      renderMarkdown();
+    }
+    updateStats();
+    showButtonFeedback(DOM.clearNoteButton, CONFIG.FEEDBACK.SUCCESS.CLEAR);
+  });
+}
+
 
 function createRecentItem(item, maxLimit) {
   const nowDate = new Date();
@@ -487,6 +506,7 @@ DOM.newNoteButton.addEventListener("click", () => {
 });
 
 DOM.copyNoteButton.addEventListener("click", copyNote);
+DOM.clearNoteButton.addEventListener("click", clearNote);
 
 DOM.exportButton.addEventListener("click", () => {
   const data = getRecent();
