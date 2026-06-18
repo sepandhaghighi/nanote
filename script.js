@@ -75,6 +75,7 @@ const DOM = {
   noteSaveDate: document.getElementById("note-save-date"),
   autoSave: document.getElementById("auto-save"),
   recentItems: document.getElementById("recent-items"),
+  saveNoteButton: document.getElementById("save-note"),
   clearNoteButton: document.getElementById("clear-note"),
   newNoteButton: document.getElementById("new-note"),
   copyNoteButton: document.getElementById("copy-note"),
@@ -458,10 +459,10 @@ DOM.form.addEventListener("submit", function(e) {
   validateForm(ok => {
     if (ok) {
       saveNote(DOM.noteTitle.value.trim(), DOM.noteText.value);
-      showButtonFeedback(e.submitter, CONFIG.FEEDBACK.SUCCESS.SAVE);
+      showButtonFeedback(DOM.saveNoteButton, CONFIG.FEEDBACK.SUCCESS.SAVE);
     }
     else {
-      showButtonFeedback(e.submitter, CONFIG.FEEDBACK.ERROR.GENERIC, "error");
+      showButtonFeedback(DOM.saveNoteButton, CONFIG.FEEDBACK.ERROR.GENERIC, "error");
     }
   });
 });
