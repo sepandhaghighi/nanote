@@ -205,6 +205,8 @@ function openNoteFromFile(file) {
     const name = getFileBaseName(file.name);
     DOM.noteTitle.value = name;
     unlockTitle();
+    DOM.noteSaveDate.textContent = "";
+    DOM.lastSave.style.display = "none";
     updateStats();
     if (state.previewMode) {
       renderMarkdown();
