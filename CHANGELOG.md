@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Reading time
 - `resetCurrentNote` function
 ### Changed
+- Last save bug fixed
 - `README.md` updated
 - New button render bug fixed
 ## [0.8] - 2026-05-23
