@@ -38,7 +38,7 @@ const CONFIG = {
       EXPORT: '<i class="fa-solid fa-check"></i> Exported',
       IMPORT: '<i class="fa-solid fa-check"></i> Imported',
       NEW: '<i class="fa-solid fa-sparkles"></i> New',
-      CLEAR: '<i class="fa-solid fa-broom"></i> Cleared',
+      CLEAR: '<i class="fa-solid fa-eraser"></i> Cleared',
       DONE: '<i class="fa-solid fa-check"></i> Done'
     },
 
