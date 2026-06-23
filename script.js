@@ -38,7 +38,8 @@ const CONFIG = {
       EXPORT: '<i class="fa-solid fa-check"></i> Exported',
       IMPORT: '<i class="fa-solid fa-check"></i> Imported',
       NEW: '<i class="fa-solid fa-sparkles"></i> New',
-      CLEAR: '<i class="fa-solid fa-broom"></i> Cleared',
+      CLEAR: '<i class="fa-solid fa-eraser"></i> Cleared',
+      REMOVE: '<i class="fa-solid fa-broom"></i> Removed',
       DONE: '<i class="fa-solid fa-check"></i> Done'
     },
 
@@ -360,7 +361,7 @@ function removeAllNotes() {
       setRecent([]);
       unlockTitle();
       renderRecent();
-      showButtonFeedback(DOM.removeAllButton, CONFIG.FEEDBACK.SUCCESS.CLEAR);
+      showButtonFeedback(DOM.removeAllButton, CONFIG.FEEDBACK.SUCCESS.REMOVE);
     }
     else {
       showButtonFeedback(DOM.removeAllButton, CONFIG.FEEDBACK.CANCEL.DEFAULT, "cancel");
