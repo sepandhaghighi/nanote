@@ -710,10 +710,16 @@ DOM.openFileInput.addEventListener("change", () => {
 DOM.previewToggleButton.addEventListener("click", togglePreview);
 
 document.addEventListener("keydown", (event) => {
-  const isSaveShortcut = (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s";
-  if (!isSaveShortcut) {
+  const modifier = event.ctrlKey || event.metaKey;
+  const isSaveShortcut = modifier && event.key.toLowerCase() === "s";
+  const isPreviewShortcut = modifier && event.shiftKey && event.key.toLowerCase() === "m";
+  if (isSaveShortcut) {
+    event.preventDefault();
+    DOM.form.requestSubmit();
     return;
   }
-  event.preventDefault();
-  DOM.form.requestSubmit();
+  if (isPreviewShortcut) {
+    event.preventDefault();
+    togglePreview();
+  }
 });
