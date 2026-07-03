@@ -65,6 +65,19 @@ Nanote is a minimal, fast, and lightweight Progressive Web App (PWA) for creatin
 
 - **Remove All**: Remove all notes
 
+## Keyboard Shortcuts
+
+The following keyboard shortcuts are available on desktop browsers:
+
+| Action  | Shortcut |
+| ------- | -------- |
+| Save note | <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>S</kbd> |
+| Toggle Markdown Preview | <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> |
+
+> **Note**
+>
+> On Windows and Linux, use **Ctrl**. On macOS, use **Cmd (⌘)**.
+
 ## Local Development
 
 To test Nanote locally, you can use [Ghps](https://github.com/sepandhaghighi/ghps) a minimal GitHub Pages simulator written in pure Python.
