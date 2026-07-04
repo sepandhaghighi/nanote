@@ -181,6 +181,14 @@ function renderMarkdown() {
   DOM.markdownPreview.innerHTML = cleanHtml;
 }
 
+function refreshPreview() {
+  if (!state.previewMode) {
+    return;
+  }
+  renderMarkdown();
+  DOM.markdownPreview.scrollTop = 0;
+}
+
 function togglePreview() {
   state.previewMode = !state.previewMode;
 
