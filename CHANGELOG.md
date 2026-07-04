@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - `Ctrl+Shift+M` keyboard shortcut
+### Changed
+- `README.md` updated
 ## [0.9] - 2026-06-24
 ### Added
 - `Ctrl+S` keyboard shortcut
