@@ -193,7 +193,7 @@ function togglePreview() {
   state.previewMode = !state.previewMode;
 
   if (state.previewMode) {
-    renderMarkdown();
+    refreshPreview();
     DOM.markdownPreview.style.display = "block";
     DOM.noteText.style.display = "none";
     DOM.previewToggleButton.innerHTML = '<i class="fa-solid fa-pen"></i> Edit';
@@ -217,9 +217,7 @@ function openNoteFromFile(file) {
     DOM.noteSaveDate.textContent = "";
     DOM.lastSave.style.display = "none";
     updateStats();
-    if (state.previewMode) {
-      renderMarkdown();
-    }
+    refreshPreview();
     showButtonFeedback(DOM.openNoteButton, CONFIG.FEEDBACK.SUCCESS.DONE);
   };
 
@@ -342,9 +340,7 @@ function loadNote(title, text, saveDate) {
   DOM.lastSave.style.display = "block";
   DOM.noteSaveDate.textContent = new Date(saveDate).toLocaleString();
   updateStats();
-  if (state.previewMode) {
-    renderMarkdown();
-  }
+  refreshPreview();
 }
 
 function removeNote(title) {
@@ -397,9 +393,7 @@ function clearNote() {
     }
     DOM.noteText.value = "";
 
-    if (state.previewMode) {
-      renderMarkdown();
-    }
+    refreshPreview();
     updateStats();
     showButtonFeedback(DOM.clearNoteButton, CONFIG.FEEDBACK.SUCCESS.CLEAR);
   });
@@ -459,9 +453,7 @@ function resetCurrentNote() {
   DOM.lastSave.style.display = "none";
   unlockTitle();
   updateStats();
-  if (state.previewMode) {
-    renderMarkdown();
-  }
+  refreshPreview();
 }
 
 
