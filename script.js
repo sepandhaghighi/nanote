@@ -402,6 +402,7 @@ function clearNote() {
 
 function createRecentItem(item, maxLimit) {
   const nowDate = new Date();
+  const saveDate = new Date(item.saveDate);
   const li = document.createElement("li");
   const spanTitle = document.createElement("span");
   const spanRemove = document.createElement("span");
@@ -410,11 +411,11 @@ function createRecentItem(item, maxLimit) {
   spanTitle.className = "recent-title";
   spanRemove.innerHTML = '<i class="fa-regular fa-trash-can"></i>';
   spanRemove.className = "recent-remove";
-  if (nowDate.toLocaleDateString() === new Date(item.saveDate).toLocaleDateString()) {
-    spanSaveDate.textContent = new Date(item.saveDate).toLocaleTimeString();
+  if (nowDate.toLocaleDateString() === saveDate.toLocaleDateString()) {
+    spanSaveDate.textContent = saveDate.toLocaleTimeString();
   }
   else {
-    spanSaveDate.textContent = new Date(item.saveDate).toLocaleDateString();
+    spanSaveDate.textContent = saveDate.toLocaleDateString();
   }
   spanSaveDate.className = "recent-save-date";
   li.appendChild(spanRemove);
