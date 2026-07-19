@@ -85,6 +85,7 @@ body:
       label: Nanote version
       description: Which version of Nanote are you using?
       options:
+        - Nanote 1.0
         - Nanote 0.9
         - Nanote 0.8
         - Nanote 0.7
