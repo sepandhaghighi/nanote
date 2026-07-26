@@ -235,7 +235,7 @@ function downloadNote() {
   const defaultName =
     (title.replace(/\s+/g, "_") || CONFIG.FILE.DEFAULT_FILE_NAME) + ".txt";
   showPrompt(
-    "File Name:",
+    CONFIG.MESSAGES.FILE_NAME,
     defaultName
   )
   .then(result => {
@@ -522,7 +522,7 @@ DOM.exportButton.addEventListener("click", () => {
     return;
   }
   showPrompt(
-    "File Name:",
+    CONFIG.MESSAGES.FILE_NAME,
     CONFIG.FILE.EXPORT_FILE_NAME
   )
   .then(result => {
