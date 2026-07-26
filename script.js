@@ -53,6 +53,7 @@ const CONFIG = {
   },
 
   MESSAGES: {
+    FILE_NAME: "File Name:",
     CONFIRM_CLEAR: "Are you sure you want to clear the current note text?",
     CONFIRM_OVERWRITE: "A note with this title already exists.\nContinuing will overwrite the existing note.\n\nContinue?",
     CONFIRM_REMOVE: "Are you sure you want to remove this note?",
