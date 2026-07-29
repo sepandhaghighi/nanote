@@ -53,6 +53,7 @@ const CONFIG = {
   },
 
   MESSAGES: {
+    FILE_NAME: "File Name:",
     CONFIRM_CLEAR: "Are you sure you want to clear the current note text?",
     CONFIRM_OVERWRITE: "A note with this title already exists.\nContinuing will overwrite the existing note.\n\nContinue?",
     CONFIRM_REMOVE: "Are you sure you want to remove this note?",
@@ -234,7 +235,7 @@ function downloadNote() {
   const defaultName =
     (title.replace(/\s+/g, "_") || CONFIG.FILE.DEFAULT_FILE_NAME) + ".txt";
   showPrompt(
-    "File Name:",
+    CONFIG.MESSAGES.FILE_NAME,
     defaultName
   )
   .then(result => {
@@ -521,7 +522,7 @@ DOM.exportButton.addEventListener("click", () => {
     return;
   }
   showPrompt(
-    "File Name:",
+    CONFIG.MESSAGES.FILE_NAME,
     CONFIG.FILE.EXPORT_FILE_NAME
   )
   .then(result => {
