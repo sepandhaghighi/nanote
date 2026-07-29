@@ -2,6 +2,7 @@ const CONFIG = {
   STORAGE_KEYS: {
     RECENT: "recentNotes",
     AUTO_SAVE: "autoSave",
+    DRAFT: "draftNote",
   },
 
   LIMITS: {
@@ -173,6 +174,34 @@ function getAutoSave() {
 
 function setAutoSave(value) {
   localStorage.setItem(CONFIG.STORAGE_KEYS.AUTO_SAVE, value);
+}
+
+function saveDraft() {
+  localStorage.setItem(
+    CONFIG.STORAGE_KEYS.DRAFT,
+    JSON.stringify({
+      title: DOM.noteTitle.value,
+      text: DOM.noteText.value,
+    })
+  );
+}
+
+function getDraft() {
+  const draft = localStorage.getItem(CONFIG.STORAGE_KEYS.DRAFT);
+
+  if (!draft) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(draft);
+  } catch {
+    return null;
+  }
+}
+
+function clearDraft() {
+  localStorage.removeItem(CONFIG.STORAGE_KEYS.DRAFT);
 }
 
 function renderMarkdown() {
