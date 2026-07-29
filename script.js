@@ -244,6 +244,7 @@ function openNoteFromFile(file) {
     const name = getFileBaseName(file.name);
     DOM.noteTitle.value = name;
     unlockTitle();
+    clearDraft();
     DOM.noteSaveDate.textContent = "";
     DOM.lastSave.style.display = "none";
     updateStats();
@@ -358,6 +359,7 @@ function saveNote(title, text) {
   DOM.lastSave.style.display = "block";
   DOM.noteSaveDate.textContent = new Date(saveDate).toLocaleString();
   renderRecent();
+  clearDraft();
 }
 
 function loadNote(title, text, saveDate) {
@@ -485,6 +487,7 @@ function resetCurrentNote() {
   unlockTitle();
   updateStats();
   refreshPreview();
+  clearDraft();
 }
 
 
@@ -504,13 +507,25 @@ DOM.form.addEventListener("submit", function(e) {
 window.addEventListener("DOMContentLoaded", () => {
   renderRecent();
   DOM.autoSave.checked = getAutoSave() === "true";
-  const recent = getRecent();
-  if (recent.length > 0) {
-    loadNote(recent[0].title, recent[0].text, recent[0].saveDate);
+  const draft = getDraft();
+
+  if (draft && (draft.title || draft.text)) {
+    DOM.noteTitle.value = draft.title;
+    DOM.noteText.value = draft.text;
+    unlockTitle();
+    updateStats();
+    refreshPreview();
+  }
+  else {
+    const recent = getRecent();
+    if (recent.length > 0) {
+      loadNote(recent[0].title, recent[0].text, recent[0].saveDate);
+    }
   }
 });
 
 DOM.noteText.addEventListener("input", () => {
+  saveDraft();
   updateStats();
   if (DOM.autoSave.checked){
     if (!state.currentNoteTitle) {
@@ -602,6 +617,7 @@ DOM.removeAllButton.addEventListener("click", removeAllNotes);
 
 DOM.noteTitle.addEventListener("input", () => {
   DOM.noteTitle.setCustomValidity("");
+  saveDraft();
 });
 
 DOM.recentFile.addEventListener("change", () => {
@@ -628,6 +644,7 @@ DOM.recentFile.addEventListener("change", () => {
       );
       if (!isValid) throw new Error();
       setRecent(parsed);
+      clearDraft();
       renderRecent();
       if (parsed.length > 0) {
         loadNote(parsed[0].title, parsed[0].text, parsed[0].saveDate);
