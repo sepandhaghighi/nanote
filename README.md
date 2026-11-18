@@ -82,16 +82,22 @@ The following keyboard shortcuts are available on desktop browsers:
 
 To test Nanote locally, you can use [Ghps](https://github.com/sepandhaghighi/ghps) a minimal GitHub Pages simulator written in pure Python.
 
+Install Ghps:
+
+```console
+pip install "ghps>=0.8"
+```
+
 Run:
 
 ```console
-ghps --port 8000
+ghps
 ```
 
 Then open your browser and visit:
 
 ```console
-http://localhost:8000
+http://localhost:9003
 ```
 
 ## Dependencies
