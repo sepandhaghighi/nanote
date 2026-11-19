@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Messages updated
 - `README.md` updated
+- Unnecessary page reload bug fixed
 ## [1.0] - 2026-07-19
 ### Added
 - `Ctrl+Shift+M` keyboard shortcut
