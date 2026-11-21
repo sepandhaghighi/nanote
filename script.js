@@ -767,6 +767,7 @@ document.addEventListener("keydown", (event) => {
   const modifier = event.ctrlKey || event.metaKey;
   const isSaveShortcut = modifier && event.key.toLowerCase() === "s";
   const isPreviewShortcut = modifier && event.shiftKey && event.key.toLowerCase() === "m";
+  const isNewNoteShortcut = modifier && event.shiftKey && event.key.toLowerCase() === "n";
   if (isSaveShortcut) {
     event.preventDefault();
     DOM.form.requestSubmit();
@@ -775,5 +776,10 @@ document.addEventListener("keydown", (event) => {
   if (isPreviewShortcut) {
     event.preventDefault();
     togglePreview();
+    return;
+  }
+  if (isNewNoteShortcut) {
+    event.preventDefault();
+    DOM.newNoteButton.click();
   }
 });
