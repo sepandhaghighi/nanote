@@ -73,6 +73,7 @@ The following keyboard shortcuts are available on desktop browsers:
 | ------- | -------- |
 | Save note | <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>S</kbd> |
 | Toggle Markdown Preview | <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> |
+| New note | <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> |
 
 > **Note**
 >
